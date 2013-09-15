@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="net.yuanmomo.mybatis.mapper.TestMapper">
+	<cache />
+
+	<update id="update" parameterType="TestBean">
+		UPDATE TEST SET NUMBER =#{number},VERSION=#{version} WHERE ID=#{id}
+	</update>
+	<select id="get" resultType="TestBean" parameterType="int">
+		select id as id,number as number,version as version from test where id=#{id}
+	</select>
+	<insert id="insert" parameterType="TestBean">
+		insert into test (number) values (#{number})
+	</insert>
+</mapper>

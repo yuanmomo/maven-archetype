@@ -24,4 +24,30 @@ maven，一个很强大的项目管理，编译，打包，jar包管理工具。
 =================
 使用手册：
 
-1. 下载整个maven-archetype到本地，例如D:\maven-archetype
+1. 下载整个maven-archetype到本地，例如当前下载到D:盘。
+2. 从CMD进入到 spring-springmvc-mybatis目录下：
+	ex:D:\maven-archetype-master\maven-archetype-master\spring-springmvc-mybatis
+	
+3. 在控制台执行如下的命令：
+	ex: 1).D:xxxxxxxxxxxxxxxxxx\spring-springmvc-mybatis>mvn clean
+	
+	    2).D:xxxxxxxxxxxxxxxxxx\spring-springmvc-mybatis>mvn archetype:create-from-project
+		
+	    3).D:xxxxxxxxxxxxxxxxxx\spring-springmvc-mybatis>cd target/generated-sources/archetype
+		
+	    4).D:xxxxxxxxxxxxxxxxxx\spring-springmvc-mybatis\target\generated-sources\archetype>mvn clean install
+4. 检查用户目录(WIN7,WIN8默认在C:\Users\用户名\.m2下)：
+	1. %USER%\.m2文件夹下面是不是多了一个archetype-catalog.xml文件。
+	2. 打开archetype-catalog.xml文件，在<archetypes>标签中应该多了如下内容，即表示安装完成。
+	<archetype>
+      <groupId>net.yuanmomo</groupId>
+      <artifactId>spring-springmvc-mybatis-archetype</artifactId>
+      <version>0.0.1</version>
+      <description>spring-springmvc-mybatis-archetype</description>
+    </archetype>
+5. 打开eclipse，创建一个maven项目，在<select an Anchetype>页面中：
+	1. Catalog中要指向刚刚.m2下面的archetype-catalog.xml文件
+	2. 然后在下面的框中选择如下的Anchetype：
+		<groupId>net.yuanmomo</groupId>
+		<artifactId>spring-springmvc-mybatis-archetype</artifactId>
+	然后一路向后，完成项目的创建即可。

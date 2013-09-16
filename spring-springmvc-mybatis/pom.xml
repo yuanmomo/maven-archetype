@@ -47,7 +47,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<junit.version>4.11</junit.version>
-		<!-- <slf4j.version>1.6.4</slf4j.version> -->
+		<slf4j.version>1.6.4</slf4j.version>
 		<!-- <logback.version>1.0.1</logback.version> -->
 		<log4j.version>1.2.17</log4j.version>
 
@@ -70,8 +70,8 @@
 
 		<mysql.version>5.1.26</mysql.version>
 
-		<commons.dbcp.version>1.4</commons.dbcp.version>
-		<commons.pool.version>1.6</commons.pool.version>
+		<commons.boneCP.version>0.7.1.RELEASE</commons.boneCP.version>
+		<commons.boneCP.Spring.version>0.7.1.RELEASE</commons.boneCP.Spring.version>
 		<commons.codec.version>1.8</commons.codec.version>
 		<commons.io.version>2.4</commons.io.version>
 		<commons.logging.version>1.1.3</commons.logging.version>
@@ -166,6 +166,11 @@
 			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>${dom4j.version}</version>
@@ -228,16 +233,6 @@
 			<version>${poi.scratchpad.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>${commons.dbcp.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-pool</groupId>
-			<artifactId>commons-pool</artifactId>
-			<version>${commons.pool.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>${commons.beanutils.version}</version>
@@ -276,6 +271,18 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>${commons.codec.version}</version>
+		</dependency>
+		
+		<!-- BoneCP 数据源 -->
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>${commons.boneCP.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp-spring</artifactId>
+			<version>${commons.boneCP.Spring.version}</version>
 		</dependency>
 
 		<!-- Core utilities used by other modules. Define this if you use Spring 

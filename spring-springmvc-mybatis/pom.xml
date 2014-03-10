@@ -127,5 +127,12 @@
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.logback-extensions</groupId>
+		    <artifactId>logback-ext-spring</artifactId>
+		    <version>0.1.1</version>
+		    <scope>runtime</scope>
+		</dependency>
 	</dependencies>
 </project>

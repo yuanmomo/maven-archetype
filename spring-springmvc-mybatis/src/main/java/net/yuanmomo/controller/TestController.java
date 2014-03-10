@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import net.yuanmomo.bean.TestBean;
 import net.yuanmomo.business.TestBusiness;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/result.do")
 public class TestController {
-	private Logger logger=Logger.getLogger(TestController.class);
+	private Logger logger=LoggerFactory.getLogger(TestController.class);
 
 	@Resource(name = "testBusiness")
 	private TestBusiness testBusiness = null;

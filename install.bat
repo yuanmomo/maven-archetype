@@ -35,5 +35,14 @@ ECHO maven install
 SET COMMAND=mvn clean install
 CALL %COMMAND%
 
+ECHO 进入项目的根目录target/generated-sources/archetype
+ECHO cd target to install
+CD ../../../
+
+ECHO 调用清空命令(先清空当前目录的target),清空当前编译生成的文件
+ECHO maven clean this directory
+SET COMMAND=mvn clean
+CALL %COMMAND%
+
 echo congratulations, install succeed.
 pause

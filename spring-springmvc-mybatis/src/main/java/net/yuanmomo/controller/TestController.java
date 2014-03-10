@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import net.yuanmomo.bean.TestBean;
 import net.yuanmomo.business.TestBusiness;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

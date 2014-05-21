@@ -29,18 +29,26 @@
 		<property name="jdbcUrl" value="${url}" />
 		<property name="username" value="${user}" />
 		<property name="password" value="${password}" />
-		<property name="partitionCount" value="4" />
+		<property name="partitionCount" value="2" />
 		<property name="maxConnectionsPerPartition" value="5" />
 		<property name="minConnectionsPerPartition" value="2" />
 		<property name="acquireIncrement" value="4" />
 		<property name="queryExecuteTimeLimitInMs" value="360000" />
-		<property name="connectionTimeoutInMs" value="60000" />
-		<property name="releaseHelperThreads" value="4" />
+		<property name="statementsCacheSize" value="50" />
 		<!-- Mysql 8小时超时问题 -->
 		<property name="connectionTestStatement" value="SELECT 1" />
-		<property name="idleConnectionTestPeriodInSeconds" value="28000 " />
-		<property name="statementsCacheSize" value="100" />
-		<property name="idleMaxAgeInMinutes" value="400" />
+		<property name="idleConnectionTestPeriodInSeconds" value="18000" />
+		<property name="idleMaxAgeInMinutes" value="300" />
+		<property name="maxConnectionAgeInSeconds" value="28700" />
+		<property name="connectionTimeoutInMs" value="60000" />
+		<!--
+		If set to true, create a new thread that monitors
+		a connection and displays warnings 
+		if application failed to  
+	 	close the connection. FOR DEBUG PURPOSES ONLY! 
+	 	-->
+		<property name="closeConnectionWatch" value="true" />
+		<property name="logStatementsEnabled" value="true" />
 	</bean>
 
 	<!-- ================================事务相关控制================================================= -->

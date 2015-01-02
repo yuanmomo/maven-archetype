@@ -54,3 +54,27 @@ maven，一个很强大的项目管理，编译，打包，jar包管理工具。
 		<groupId>net.yuanmomo</groupId>
 		<artifactId>spring-springmvc-mybatis-archetype</artifactId>
 	然后一路向后，完成项目的创建即可。
+
+	
+/************************************************  测试安装  ************************************************/
+
+1. 打开eclipse，创建一个maven项目，在<select an Anchetype>页面中：
+	1. Catalog中要指向刚刚.m2下面的archetype-catalog.xml文件
+	2. 然后在下面的框中选择如下的Anchetype：
+		<groupId>net.yuanmomo</groupId>
+		<artifactId>spring-springmvc-mybatis-archetype</artifactId>
+	然后一路向后，完成项目的创建即可。
+2. 创建成功后，source src/test/resources文件夹下面的DBInit.sql文件，会在本地mysql创建一张test表。
+	
+3.  在项目创建成功后，删除bean和mybatis.mapper包下面的文件后测试。
+	原因：由于git不能保存空的文件夹，所以默认上传了generator自动生成的文件。
+
+4. 修改配置文件。
+	修改src/test/resources/ mybatis目录下面的generatorConfig.properties文件。
+	参照提示修改targetProject设置。
+
+5. 修改配置文件后，运行src/test/java/文件夹中下mybatis/generator的MyBatisGeneratorTest类。
+	5.1 如果成功运行，会在bean包下面生成两个文件，bean和param
+	5.2 mybatis.mapper包中生成四个文件，两个java，两个xml，互相对应。
+6. 运行src/test/resources/ 下面的BasicTest中的test方法，运行成功后会在数据库test表插入一条记录。
+	

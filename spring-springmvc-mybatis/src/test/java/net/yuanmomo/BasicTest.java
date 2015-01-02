@@ -1,6 +1,5 @@
 package net.yuanmomo;
 
-import net.yuanmomo.bean.TestBean;
 import net.yuanmomo.business.TestBusiness;
 
 import org.junit.Test;
@@ -15,22 +14,10 @@ public class BasicTest {
 	@Autowired
 	protected TestBusiness testBusiness = null;
 
-//	@Before
-//	public void setUp() throws Exception {
-//		// 绝对路径
-//		// beanFactory=new
-//		//
-//		// ClassPathXmlApplicationContext("file:E:\\workspace\\7e-NewPlatform2.0\\WebContent\\WEB-INF\\applicationContext.xml"
-//		// );
-//		// 相对路径
-//		beanFactory = new ClassPathXmlApplicationContext(
-//				"config/ApplicationContext.xml");
-//		testBusiness = beanFactory.getBean(TestBusiness.class);
-//	}
 	@Test
 	public void test() {
 		try {
-			TestBean t = new TestBean();
+			net.yuanmomo.bean.Test t = new net.yuanmomo.bean.Test();
 			t.setNumber(11);
 			boolean flag = testBusiness.insert(t);
 			if (flag) {

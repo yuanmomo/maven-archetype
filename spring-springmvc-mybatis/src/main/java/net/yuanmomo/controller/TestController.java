@@ -1,12 +1,12 @@
 package net.yuanmomo.controller;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import net.yuanmomo.bean.TestBean;
+import net.yuanmomo.bean.Test;
 import net.yuanmomo.business.TestBusiness;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/result.do")
 public class TestController {
 
-	@Resource(name = "testBusiness")
+	@Autowired
 	private TestBusiness testBusiness = null;
 	public void setTestBusiness(TestBusiness testBusiness) {
 		this.testBusiness = testBusiness;
@@ -24,7 +24,7 @@ public class TestController {
 	@RequestMapping
 	public String insert(HttpServletRequest request, ModelMap map){
 		try {
-			TestBean t=new TestBean();
+			Test t=new Test();
 			t.setNumber(1);
 			boolean flag=testBusiness.insert(t);
 			if(flag){

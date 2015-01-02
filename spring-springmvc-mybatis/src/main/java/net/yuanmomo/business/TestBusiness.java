@@ -1,6 +1,6 @@
 package net.yuanmomo.business;
 
-import net.yuanmomo.bean.TestBean;
+import net.yuanmomo.bean.Test;
 import net.yuanmomo.mybatis.mapper.TestMapper;
 
 import org.slf4j.Logger;
@@ -19,9 +19,9 @@ public class TestBusiness{
 	private TestMapper testMapper=null;
 
 	@Transactional(propagation=Propagation.REQUIRED,isolation =Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
-	public boolean insert(TestBean t) throws Exception {
+	public boolean insert(Test t) throws Exception {
 		logger.debug("Start to insert record.......");
-		int count=testMapper.insert(t);
+		int count=testMapper.insertSelective(t);
 		logger.debug("Insert record finished.......");
 		return count>0 ? true : false;
 	}

@@ -1,9 +1,30 @@
 package net.yuanmomo.mybatis.mapper;
 
-import net.yuanmomo.bean.TestBean;
+import java.util.List;
+import net.yuanmomo.bean.Test;
+import net.yuanmomo.bean.TestParam;
+import org.apache.ibatis.annotations.Param;
 
 public interface TestMapper {
-	public int update(TestBean t) throws Exception;
-	public TestBean get(int id) throws Exception;
-	public int insert(TestBean t);
+    int countByExample(TestParam example);
+
+    int deleteByExample(TestParam example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(Test record);
+
+    int insertSelective(Test record);
+
+    List<Test> selectByExample(TestParam example);
+
+    Test selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") Test record, @Param("example") TestParam example);
+
+    int updateByExample(@Param("record") Test record, @Param("example") TestParam example);
+
+    int updateByPrimaryKeySelective(Test record);
+
+    int updateByPrimaryKey(Test record);
 }

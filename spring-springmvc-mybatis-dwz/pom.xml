@@ -3,14 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.yuanmomo</groupId>
-	<artifactId>spring-springmvc-mybatis</artifactId>
-	<version>1.1.4</version>
+	<artifactId>spring-springmvc-mybatis-dwz</artifactId>
+	<version>1.1.2</version>
 	<packaging>war</packaging>
 	
-	<name>spring-springmvc-mybatis</name>
+	<name>spring-springmvc-mybatis-dwz</name>
 	
 	<url>http://maven.apache.org</url>
-	
 	<repositories>
 		<repository>
 			<id>offical</id>
@@ -21,6 +20,11 @@
 			<id>mvnsearch</id>
 			<name>mvnsearch Maven Repository</name>
 			<url>http://www.mvnsearch.org/maven2</url>
+		</repository>
+		<repository>
+			<id>google-maven-snapshot-repository</id>
+			<name>Google Maven Snapshot Repository</name>
+			<url>http://m2repos.googlecode.com/svn/nexus</url>
 		</repository>
 	</repositories>
 	<properties>
@@ -132,7 +136,23 @@
 		    <groupId>org.logback-extensions</groupId>
 		    <artifactId>logback-ext-spring</artifactId>
 		    <version>0.1.1</version>
-		    <scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<!-- kaptcha -->
+		 <dependency>
+            <groupId>com.google.code</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
 	</dependencies>
 </project>

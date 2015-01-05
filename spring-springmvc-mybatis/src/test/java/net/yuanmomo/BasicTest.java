@@ -1,6 +1,6 @@
 package net.yuanmomo;
 
-import net.yuanmomo.business.TestBusiness;
+import net.yuanmomo.business.mybatis.TestBusiness;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,8 +19,8 @@ public class BasicTest {
 		try {
 			net.yuanmomo.bean.Test t = new net.yuanmomo.bean.Test();
 			t.setNumber(11);
-			boolean flag = testBusiness.insert(t);
-			if (flag) {
+			int count = testBusiness.insertSelective(t);
+			if (count > 0) {
 				System.out.println("插入成功");
 			} else {
 				System.out.println("插入失败");

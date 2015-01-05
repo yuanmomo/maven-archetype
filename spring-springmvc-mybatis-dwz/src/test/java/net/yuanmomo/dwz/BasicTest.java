@@ -19,8 +19,9 @@ public class BasicTest {
 		try {
 			net.yuanmomo.dwz.bean.Test t = new net.yuanmomo.dwz.bean.Test();
 			t.setNumber(11);
-			boolean flag = testBusiness.insert(t);
-			if (flag) {
+			int count = testBusiness.(t);
+			if (count > 0) {
+				System.out.println("插入成功");
 			} else {
 				System.out.println("插入失败");
 			}

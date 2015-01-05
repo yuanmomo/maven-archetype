@@ -25,6 +25,11 @@
 			<property name="typeName" value="DAO"/>
 		</plugin>
 
+		<!-- MyBatis generator 额外Business插件 -->
+		<plugin type="net.yuanmomo.mybatis.generator.plugin.BusinessPlugin" >
+			<property name="packageName" value="${businessPackage}"/>
+		</plugin>
+
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
 			<property name="suppressDate" value="true" />
@@ -50,6 +55,7 @@
 		</javaClientGenerator>
 		
 		<table tableName="test" domainObjectName="Test" >
+			<property name="generatedBusinessName" value="TestBusiness"/>
 			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
 	</context>

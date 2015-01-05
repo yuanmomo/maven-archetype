@@ -3,7 +3,7 @@ package net.yuanmomo.dwz.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import net.yuanmomo.dwz.bean.Test;
-import net.yuanmomo.dwz.business.TestBusiness;
+import net.yuanmomo.dwz.business.mybatis.TestBusiness;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +21,4 @@ public class TestController {
 		this.testBusiness = testBusiness;
 	}
 
-	@RequestMapping
-	public String insert(HttpServletRequest request, ModelMap map){
-		try {
-			Test t=new Test();
-			t.setNumber(1);
-			boolean flag=testBusiness.insert(t);
-			if(flag){
-				LoggerFactory.getLogger("systemLog").info("插入成功");
-				map.put("message","插入成功");
-			}else{
-				LoggerFactory.getLogger("systemLog").info("插入失败");
-				map.put("message","插入失败");
-			}
-		} catch (Exception e) {
-			LoggerFactory.getLogger("systemLog").error("插入异常" + e.getMessage());
-			map.put("message","插入异常" + e.getMessage());
-			e.printStackTrace();
-		}
-		return "result";
-	}
 }

@@ -1,6 +1,6 @@
 package net.yuanmomo.dwz;
 
-import net.yuanmomo.dwz.business.TestBusiness;
+import net.yuanmomo.dwz.business.mybatis.TestBusiness;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +19,7 @@ public class BasicTest {
 		try {
 			net.yuanmomo.dwz.bean.Test t = new net.yuanmomo.dwz.bean.Test();
 			t.setNumber(11);
-			int count = testBusiness.(t);
+			int count = testBusiness.insertSelective(t);
 			if (count > 0) {
 				System.out.println("插入成功");
 			} else {

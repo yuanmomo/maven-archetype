@@ -11,11 +11,11 @@
 
 package net.yuanmomo.dwz.mybatis.generator.plugin;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.yuanmomo.dwz.bean.AjaxResponseBean;
+import net.yuanmomo.dwz.util.PaginationBean;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.GeneratedJavaFile;
@@ -23,6 +23,7 @@ import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.InnerClass;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
@@ -41,47 +42,54 @@ import org.mybatis.generator.config.PropertyRegistry;
  * @see 	 
  */
 public class BusinessPlugin extends PluginAdapter {
-	private static final String generatedBusinessNamePro="generatedBusinessName";
-	private static final String generatedBusinessPackagePro="generatedBusinessPackage";
+	private String businessPackageName;
+	private String controllerPackageName;
 	
-	private static String packageName;
-	
-	private static List<String> importStringList = new ArrayList<String>();
+	private static List<String> businessImportStringList = new ArrayList<String>();
 	static{
-		importStringList.add("java.util.ArrayList");
-        importStringList.add("java.util.List");
-        importStringList.add("org.slf4j.Logger");
-        importStringList.add("org.slf4j.LoggerFactory");
-        importStringList.add("org.springframework.beans.factory.annotation.Autowired");
-        importStringList.add("org.springframework.stereotype.Service");
-        importStringList.add("org.springframework.transaction.annotation.Isolation");
-        importStringList.add("org.springframework.transaction.annotation.Propagation");
-        importStringList.add("org.springframework.transaction.annotation.Transactional");
+		businessImportStringList.add("java.util.ArrayList");
+        businessImportStringList.add("java.util.List");
+        businessImportStringList.add("org.slf4j.Logger");
+        businessImportStringList.add("org.slf4j.LoggerFactory");
+        businessImportStringList.add("org.springframework.beans.factory.annotation.Autowired");
+        businessImportStringList.add("org.springframework.stereotype.Service");
+        businessImportStringList.add("org.springframework.transaction.annotation.Isolation");
+        businessImportStringList.add("org.springframework.transaction.annotation.Propagation");
+        businessImportStringList.add("org.springframework.transaction.annotation.Transactional");
+	}
+	private static List<String> controllerImportStringList = new ArrayList<String>();
+	static{
+		controllerImportStringList.add("java.util.List");
+		controllerImportStringList.add("javax.servlet.http.HttpServletRequest");
+		controllerImportStringList.add("net.yuanmomo.dwz.bean.AjaxResponseBean");
+		controllerImportStringList.add("net.yuanmomo.dwz.util.CollectionUtil");
+		controllerImportStringList.add("net.yuanmomo.dwz.util.PaginationUtil");
+		controllerImportStringList.add("net.yuanmomo.dwz.util.PaginationBean");
+		controllerImportStringList.add("org.slf4j.Logger");
+		controllerImportStringList.add("org.slf4j.LoggerFactory");
+		controllerImportStringList.add("org.springframework.beans.factory.annotation.Autowired");
+		controllerImportStringList.add("org.springframework.stereotype.Controller");
+		controllerImportStringList.add("org.springframework.ui.ModelMap");
+		controllerImportStringList.add("org.springframework.web.bind.annotation.ModelAttribute");
+		controllerImportStringList.add("org.springframework.web.bind.annotation.RequestMapping");
+		controllerImportStringList.add("org.springframework.web.bind.annotation.RequestParam");
+		controllerImportStringList.add("org.springframework.web.bind.annotation.ResponseBody");
 	}
 	
 	private static String transactionAnno = "@Transactional(propagation=Propagation.REQUIRED,isolation =Isolation.REPEATABLE_READ, rollbackFor = Exception.class)";
 	
 	/**
-	 * validate:. <br/>
+	 * validate: 生成business和controller又xml中的table标签来控制. <br/>
 	 *
 	 * @author Hongbin Yuan
 	 * @param warnings
 	 * @return
 	 * @see org.mybatis.generator.api.Plugin#validate(java.util.List)
 	 */
-	@Override
 	public boolean validate(List<String> warnings) {
-		packageName = properties.getProperty("packageName"); //$NON-NLS-1$
-
-        boolean valid = stringHasValue(packageName);
-        if (!valid) {
-            if (!stringHasValue(packageName)) {
-                warnings.add(getString("ValidationError.18", //$NON-NLS-1$
-                        "BusinessPlugin", //$NON-NLS-1$
-                        "packageName")); //$NON-NLS-1$
-            }
-        }
-        return valid;
+		businessPackageName = properties.getProperty("businessPackageName"); //$NON-NLS-1$
+		controllerPackageName = properties.getProperty("controllerPackageName"); //$NON-NLS-1$
+        return true;
 	}
 
 	/**
@@ -95,30 +103,23 @@ public class BusinessPlugin extends PluginAdapter {
 	@Override
 	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(
 			IntrospectedTable introspectedTable) {
-		// 判断是否需要生成class文件
+		// 判断是否需要生成business文件
 		String javaBusinessName = 
-				introspectedTable.getTableConfiguration().getProperty(generatedBusinessNamePro);
+				introspectedTable.getTableConfiguration().getProperty("generatedBusinessName");
 		// 不生成Business文件
 		if(javaBusinessName == null || "".equals(javaBusinessName.trim())){
 			return new ArrayList<GeneratedJavaFile>();
 		}
 		
-		// 取得包名
-		String generatedBusinessPackage = 
-				introspectedTable.getTableConfiguration().getProperty(generatedBusinessPackagePro);
-		if(generatedBusinessPackage == null || "".equals(generatedBusinessPackage.trim())){
-			generatedBusinessPackage = packageName;
-		}
-		
 		CommentGenerator commentGenerator = context.getCommentGenerator();
 		
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(generatedBusinessPackage + "." + javaBusinessName);
-        TopLevelClass topLevelClass = new TopLevelClass(type);
+        FullyQualifiedJavaType businessType = new FullyQualifiedJavaType(businessPackageName + "." + javaBusinessName);
+        TopLevelClass topLevelClass = new TopLevelClass(businessType);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
 
         topLevelClass.addAnnotation("@Service");
-        for(String str : importStringList){
+        for(String str : businessImportStringList){
         	topLevelClass.addImportedType(str);
         }
         
@@ -271,6 +272,220 @@ public class BusinessPlugin extends PluginAdapter {
         
         gifList.add(gjf);
         
+        /***************************************************************************************
+         * 			生成controller文件
+         */
+        String javaControllerName = 
+				introspectedTable.getTableConfiguration().getProperty("generatedControllerName");
+		// 不生成Business文件
+		if(javaControllerName == null || "".equals(javaControllerName.trim())){
+			return gifList;
+		}
+		
+		FullyQualifiedJavaType controllerType = new FullyQualifiedJavaType(controllerPackageName + "." + javaControllerName);
+        topLevelClass = new TopLevelClass(controllerType);
+        topLevelClass.setVisibility(JavaVisibility.PUBLIC);
+        commentGenerator.addJavaFileComment(topLevelClass);
+
+        
+        // bean param参数的名称
+        String beanParamName = lowerFirstChar(beanName);
+        
+        topLevelClass.addAnnotation("@Controller");
+        topLevelClass.addAnnotation("@RequestMapping(\"/backend/" + beanParamName + "/\")");
+        for(String str : controllerImportStringList){
+        	topLevelClass.addImportedType(str);
+        }
+        
+        topLevelClass.addImportedType(introspectedTable.getBaseRecordType());
+        
+        // 添加criteria包
+        topLevelClass.addImportedType(introspectedTable.getExampleType());
+        String criteriaName = new FullyQualifiedJavaType(introspectedTable.getExampleType()).getShortName();
+        // 添加business包
+        topLevelClass.addImportedType(businessType);
+        // mapper文件的名称
+        topLevelClass.addImportedType(mapperFieldNameType);
+        String businessFieldName = lowerFirstChar(javaBusinessName);
+        
+        // add logger
+        Field logger = new Field();
+        logger.setVisibility(JavaVisibility.PRIVATE);
+        logger.setType(new FullyQualifiedJavaType("Logger"));
+        logger.setName("logger");
+        logger.setStatic(true);
+        logger.setInitializationString("LoggerFactory.getLogger(" + controllerType.getShortName() + ".class)");
+        commentGenerator.addFieldComment(logger, introspectedTable);
+        topLevelClass.addField(logger);
+        
+        // add business
+        Field business = new Field();
+        business.setVisibility(JavaVisibility.PRIVATE);
+        business.addAnnotation("@Autowired ");
+        business.setType(businessType);
+        business.setName(businessFieldName);
+        commentGenerator.addFieldComment(business, introspectedTable);
+        topLevelClass.addField(business);
+        
+        // add selectBeanList
+        method = new Method();
+        method.addAnnotation("@RequestMapping(value = \"select" + beanName + "List.do\")");
+        method.addAnnotation("@ResponseBody");
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(new FullyQualifiedJavaType(AjaxResponseBean.class.getName()));
+        method.setName("select" + beanName + "List");
+        Parameter param1 = new Parameter(new FullyQualifiedJavaType(Short.class.getName()), "conditionType");
+        param1.addAnnotation("@RequestParam(\"conditionType\") ");
+        Parameter param2 = new Parameter(FullyQualifiedJavaType.getStringInstance(), "conditionValue");
+        param2.addAnnotation("@RequestParam(\"conditionValue\") ");
+        Parameter param3 = new Parameter(new FullyQualifiedJavaType(PaginationBean.class.getName()), "paginationBean");
+        param3.addAnnotation("@ModelAttribute ");
+        method.addParameter(param1); 
+        method.addParameter(param2); 
+        method.addParameter(param3); 
+        // 方法body
+        method.addBodyLine("try {");
+        method.addBodyLine("int currentPage = paginationBean.getPageNum();");
+        method.addBodyLine("int pageSize = paginationBean.getNumPerPage(); ");
+        method.addBodyLine("");
+        method.addBodyLine("if(pageSize < 1){");
+        method.addBodyLine("	return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
+        method.addBodyLine("}");
+        method.addBodyLine("if(currentPage<1){");
+        method.addBodyLine("	return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
+        method.addBodyLine("}");
+        method.addBodyLine("// 构造查询参数");
+        method.addBodyLine("			"+criteriaName + " param =new " + criteriaName + "();");
+        method.addBodyLine("//			"+criteriaName + ".Criteria criteria = param.createCriteria();");
+        method.addBodyLine("");
+        method.addBodyLine("// 根据参数设置查询条件");
+        method.addBodyLine("");
+        method.addBodyLine("// 取得当前查询的总记录结果");
+        method.addBodyLine("int total = this." + businessFieldName + ".count" + beanName + "List(param);");
+        method.addBodyLine("if(total == 0){ // 没有记录数");
+        method.addBodyLine("	return AjaxResponseBean.getNoDataReturnValueResponseBean();");
+        method.addBodyLine("}");
+        method.addBodyLine("paginationBean.setTotalCount(total);");
+        method.addBodyLine("// 判断当前请求的页码有没有超过总页数");
+        method.addBodyLine("int totalPages = PaginationUtil.getPages(total, pageSize);");
+        method.addBodyLine("paginationBean.setTotalPages(totalPages);");
+        method.addBodyLine("");
+        method.addBodyLine("if(currentPage > totalPages){ // 当前页超过总页数,取最大数");
+        method.addBodyLine("	currentPage = totalPages;");
+        method.addBodyLine("	paginationBean.setPageNum(currentPage);");
+        method.addBodyLine("}");
+        method.addBodyLine("");
+        method.addBodyLine("// 设置排序");
+        method.addBodyLine("// param.setOrderByClause(\" id asc \");");
+        method.addBodyLine("");
+        method.addBodyLine("int start = (currentPage - 1) * pageSize;");
+        method.addBodyLine("param.setStart(start);");
+        method.addBodyLine("param.setCount(pageSize);");
+        method.addBodyLine("");
+        method.addBodyLine("List<" + beanName + "> configList = this." + businessFieldName + ".select" + beanName + "List(param);");
+        method.addBodyLine("");
+        method.addBodyLine("paginationBean.setResult(configList);  // 返回数据结果");
+        method.addBodyLine("return AjaxResponseBean.getReturnValueResponseBean(paginationBean);");
+        method.addBodyLine("} catch (Exception e) {");
+        method.addBodyLine("logger.error(\"查询异常\" + e.getMessage());");
+        method.addBodyLine("return AjaxResponseBean.getErrorResponseBean(\"查询异常\" + e.getMessage());");
+        method.addBodyLine("}"); 
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+        
+        // add updateSaveBean
+        method = new Method();
+        method.addAnnotation("@RequestMapping(value = \"updateSave" + beanName + ".do\")");
+        method.addAnnotation("@ResponseBody");
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(new FullyQualifiedJavaType(AjaxResponseBean.class.getName()));
+        method.setName("updateSave" + beanName);
+        param1 = new Parameter(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()), beanParamName);
+        param1.addAnnotation("@ModelAttribute ");
+        method.addParameter(param1); 
+        // 方法body
+        method.addBodyLine("try {");
+        method.addBodyLine("if(" + beanParamName + " == null ){");
+        method.addBodyLine("// || NumberUtil.isNotPositive(" + beanParamName + ".getId())){");
+        method.addBodyLine("return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN;");
+        method.addBodyLine("}");
+        method.addBodyLine("int updateCount = this." + businessFieldName + ".update(" + beanParamName + ");");
+        method.addBodyLine("if(updateCount >0 ){");
+        method.addBodyLine("return AjaxResponseBean.Const.SUCCESS_RESPONSE_BEAN;");
+        method.addBodyLine("}");
+        method.addBodyLine("return AjaxResponseBean.Const.ERROR_RESPONSE_BEAN;");
+        method.addBodyLine("} catch (Exception e) {");
+        method.addBodyLine("logger.error(\"更新异常\" + e.getMessage());");
+        method.addBodyLine("return AjaxResponseBean.getErrorResponseBean(\"更新异常\" + e.getMessage());");
+        method.addBodyLine("}");
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+        
+        
+        String innerClassFullName = controllerType.getFullyQualifiedName() + "." + beanName +"List";
+        InnerClass innerClass = new InnerClass(new FullyQualifiedJavaType(innerClassFullName));
+        innerClass.setVisibility(JavaVisibility.DEFAULT);
+        innerClass.setStatic(true);
+        
+        // add List<Bean> 内部类
+        String beanListFieldName = lowerFirstChar(beanName + "List");
+        FullyQualifiedJavaType beanListType = new FullyQualifiedJavaType("java.util.List<"+ beanName +">");
+        Field beanList = new Field();
+        beanList.setVisibility(JavaVisibility.PRIVATE);
+        beanList.setType(beanListType);
+        beanList.setName(beanListFieldName);
+        commentGenerator.addFieldComment(beanList, introspectedTable);
+        innerClass.addField(beanList);
+        
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(beanListType);
+        method.setName("get"+ beanName + "List");
+        method.addBodyLine("return " + beanListFieldName + ";");
+        innerClass.addMethod(method);
+        
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setName("set"+ beanName + "List");
+        method.addParameter(new Parameter(new FullyQualifiedJavaType("java.util.List<"+ beanName +">"), beanListFieldName)); 
+        method.addBodyLine("this."+ beanListFieldName + " = "+ beanListFieldName + ";");
+        innerClass.addMethod(method);
+        
+        topLevelClass.addInnerClass(innerClass);
+        
+        // add batchUpdateSaveBean
+        method = new Method();
+        method.addAnnotation("@RequestMapping(value = \"batchUpdateSave" + beanName + ".do\")");
+        method.addAnnotation("@ResponseBody");
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setReturnType(new FullyQualifiedJavaType(AjaxResponseBean.class.getName()));
+        method.setName("batchUpdateSave" + beanName);
+        param1 = new Parameter(new FullyQualifiedJavaType(innerClassFullName), beanListFieldName);
+        param1.addAnnotation("@ModelAttribute ");
+        method.addParameter(param1); 
+        // 方法body
+        method.addBodyLine("try {");
+        method.addBodyLine("if(" + beanListFieldName + " != null && CollectionUtil.isNotNull(" + beanListFieldName + ".get"+ beanName + "List())){");
+        method.addBodyLine("int updateCount = this." + businessFieldName + ".update(" + beanListFieldName + ".get"+ beanName + "List());");
+        method.addBodyLine("if(updateCount >0 ){");
+        method.addBodyLine("return AjaxResponseBean.Const.SUCCESS_RESPONSE_BEAN;");
+        method.addBodyLine("}");
+        method.addBodyLine("}");
+        method.addBodyLine("return AjaxResponseBean.Const.ERROR_RESPONSE_BEAN;");
+        method.addBodyLine("} catch (Exception e) {");
+        method.addBodyLine("logger.error(\"批量更新异常\" + e.getMessage());");
+        method.addBodyLine("return AjaxResponseBean.getErrorResponseBean(\"批量更新异常\" + e.getMessage());");
+        method.addBodyLine("}");
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+        
+        GeneratedJavaFile gjf2 = new GeneratedJavaFile(topLevelClass,
+			context.getJavaClientGeneratorConfiguration().getTargetProject(),
+            context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING),
+            context.getJavaFormatter());
+        
+        gifList.add(gjf2);
+        
 		return gifList;
 	}
 	
@@ -282,5 +497,15 @@ public class BusinessPlugin extends PluginAdapter {
 				.append(oldString.substring(0, 1).toLowerCase())
 				.append(oldString.substring(1)).toString();
 		return target;
-	} 
+	}
+
+	public static String upperFirstChar(String oldString) {
+		if (oldString == null || "".equals(oldString.trim())) {
+			return oldString;
+		}
+		String target = new StringBuffer()
+				.append(oldString.substring(0, 1).toUpperCase())
+				.append(oldString.substring(1)).toString();
+		return target;
+	}
 }

@@ -1,6 +1,6 @@
 package net.yuanmomo.dwz.bean;
 
-import net.yuanmomo.dwz.util.PaginationUtil.PaginationBean;
+import net.yuanmomo.dwz.util.PaginationBean;
 
 
 public class AjaxResponseBean {

@@ -36,15 +36,15 @@ echo 你输入的选项：%chooseResult%
 set current=1
 if %chooseResult% EQU 0 (
 	for /D %%s in (*-*) do ( 
-		rem ./libbat/libInstall.cmd %%s
-		call ./libbat/libInstall.cmd %%s
+		rem ./libbat/installArchetype.cmd %%s
+		call ./libbat/installArchetype.cmd %%s
 	)
 	goto _exit
 )else if %chooseResult% GTR 0 (
 	for /D %%s in (*-*) do (
 		if %chooseResult% EQU !current! (
-			rem ./libbat/libInstall.cmd %%s
-			call ./libbat/libInstall.cmd %%s
+			rem ./libbat/installArchetype.cmd %%s
+			call ./libbat/installArchetype.cmd %%s
 			goto _exit
 		)else (
 			set /A current+=1

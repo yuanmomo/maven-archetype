@@ -44,6 +44,9 @@ public class AliasResultMapWithoutBLOBsElementGenerator {
 	 */
 	public void addElements(XmlElement parentElement,IntrospectedTable introspectedTable) {
 		XmlElement answer = new XmlElement("resultMap"); //$NON-NLS-1$
+		
+		introspectedTable.getContext().getCommentGenerator().addComment(answer);
+		
 		answer.addAttribute(new Attribute("id", resultMapId));
 		String returnType = null;
 		if (isSimple) {

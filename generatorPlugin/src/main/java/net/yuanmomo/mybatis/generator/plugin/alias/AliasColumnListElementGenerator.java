@@ -45,6 +45,8 @@ public class AliasColumnListElementGenerator {
 	public void addElements(XmlElement parentElement,IntrospectedTable introspectedTable) {
 		XmlElement answer = new XmlElement("sql"); //$NON-NLS-1$
 
+		introspectedTable.getContext().getCommentGenerator().addComment(answer);
+		
 		answer.addAttribute(new Attribute("id",resultMapId));
 
 		Iterator<IntrospectedColumn> iter = introspectedTable

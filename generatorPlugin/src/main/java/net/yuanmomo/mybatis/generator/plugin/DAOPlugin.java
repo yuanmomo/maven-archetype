@@ -28,8 +28,11 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.XmlConstants;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.XMLMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
+import org.mybatis.generator.internal.NullProgressCallback;
 
 /**
  * ClassName : DAOPlugin 
@@ -153,5 +156,23 @@ public class DAOPlugin extends PluginAdapter {
 		gxfList.add(gxf);
         
 		return gxfList;
+	}
+
+	@Override
+	public boolean sqlMapGenerated(GeneratedXmlFile sqlMap,
+			IntrospectedTable introspectedTable) {
+//		AbstractXmlGenerator xmlGenerator = new XMLMapperGenerator();
+//		xmlGenerator.setContext(context);
+//		xmlGenerator.setIntrospectedTable(introspectedTable);
+//		xmlGenerator.setProgressCallback(new NullProgressCallback());
+//		xmlGenerator.setWarnings(new ArrayList<String>());
+//		
+//		GeneratedXmlFile sqlMapNew = new GeneratedXmlFile(xmlGenerator.getDocument(),
+//				sqlMap.getFileName(), sqlMap.getTargetPackage(),
+//				sqlMap.getTargetProject(),
+//                false, context.getXmlFormatter());
+//		
+//		sqlMap = sqlMapNew;
+		return true;
 	}
 }

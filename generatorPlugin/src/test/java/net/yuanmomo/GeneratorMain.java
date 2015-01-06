@@ -1,4 +1,4 @@
-package net.yuanmomo.mybatis;
+package net.yuanmomo;
 
 import net.yuanmomo.mybatis.generator.MyBatisGeneratorTool;
 

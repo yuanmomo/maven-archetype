@@ -42,7 +42,7 @@ import org.mybatis.generator.config.PropertyRegistry;
  * @since      JDK 1.6
  * @see 	 
  */
-public class BusinessPlugin extends PluginAdapter {
+public class BusinessControllerPlugin extends PluginAdapter {
 	private String businessPackageName;
 	private String controllerPackageName;
 	
@@ -341,6 +341,30 @@ public class BusinessPlugin extends PluginAdapter {
         commentGenerator.addFieldComment(business, introspectedTable);
         topLevelClass.addField(business);
         
+        
+        // add insert
+        method = new Method();
+		method.addAnnotation("@RequestMapping(value = \"insert.do\")");
+		method.addAnnotation("@ResponseBody");
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setReturnType(new FullyQualifiedJavaType(AjaxResponseBean.class.getName()));
+		method.setName("insert");
+		Parameter param = new Parameter(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()), beanParamName);
+		param.addAnnotation("@ModelAttribute(\"" + beanParamName + "\") ");
+		method.addParameter(param); 
+		// 方法body
+		method.addBodyLine("try {");
+		method.addBodyLine("// 数据校验");
+		method.addBodyLine("");
+		method.addBodyLine("this.testBusiness.insertSelective(test);");
+		method.addBodyLine("return AjaxResponseBean.Const.SUCCESS_RESPONSE_BEAN;");
+		method.addBodyLine("} catch (Exception e) {");
+		method.addBodyLine("logger.error(\"插入异常\" + e.getMessage());");
+		method.addBodyLine("return AjaxResponseBean.getErrorResponseBean(\"插入异常\" + e.getMessage());");
+		method.addBodyLine("}");
+		commentGenerator.addGeneralMethodComment(method, introspectedTable);
+		topLevelClass.addMethod(method);
+        
         // add getXXXByKey
         if(generatedKey != null){
         	 method = new Method();
@@ -349,7 +373,7 @@ public class BusinessPlugin extends PluginAdapter {
              method.setVisibility(JavaVisibility.PUBLIC);
              method.setReturnType(new FullyQualifiedJavaType(AjaxResponseBean.class.getName()));
              method.setName("get" + beanName + "ByKey");
-             Parameter param = new Parameter(keyType, generatedKey.getColumn());
+             param = new Parameter(keyType, generatedKey.getColumn());
              param.addAnnotation("@RequestParam(\"" + generatedKey.getColumn() + "\") ");
              method.addParameter(param); 
              // 方法body

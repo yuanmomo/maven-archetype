@@ -25,6 +25,20 @@ public class TestController {
     @Autowired 
     private TestBusiness testBusiness;
 
+    @RequestMapping(value = "insert.do")
+    @ResponseBody
+    public AjaxResponseBean insert(@ModelAttribute("test")  Test test) {
+        try {
+            // 数据校验
+            
+            this.testBusiness.insertSelective(test);
+            return AjaxResponseBean.Const.SUCCESS_RESPONSE_BEAN;
+        } catch (Exception e) {
+            logger.error("插入异常" + e.getMessage());
+            return AjaxResponseBean.getErrorResponseBean("插入异常" + e.getMessage());
+        }
+    }
+
     @RequestMapping(value = "getTestByKey.do")
     @ResponseBody
     public AjaxResponseBean getTestByKey(@RequestParam("id")  Long id) {

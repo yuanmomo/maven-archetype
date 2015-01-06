@@ -1,5 +1,5 @@
 <div class="pageContent">
-	<form method="post" action="h/test/updateSaveTest.do" class="pageForm" id="updateTestForm">
+	<form method="post" action="test/updateSaveTest.do" class="pageForm" id="updateTestForm">
 		
 	</form>
 </div>
@@ -28,7 +28,7 @@
 <script type="text/javascript">
 <!--
 //取得广告的相信信息
-getItemById('h/test/getTestById.do',"currentOptionTestlId",
+getItemById('test/getTestByKey.do',"currentOptionTestlId",
 	"updateTestTemplate","updateTestForm",
 	new Array());
 var options = {
@@ -37,7 +37,8 @@ var options = {
 	success : function(response) {
 		if(selfCallBack(response)){ // 检查是否超时,是否执行成功
 			updateDirtyForm("dialog");// 更新dirty form 页面数据
-			changeTestlSelectedConditon();
+			$.pdialog.closeCurrent();
+			selectTestList();
 		} 
 	}
 };

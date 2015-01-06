@@ -25,7 +25,7 @@
 <!-- 			<property name="typeName" value="DAO"/> -->
 <!-- 		</plugin> -->
 		<!-- MyBatis generator 额外Business插件 -->
-		<plugin type="net.yuanmomo.dwz.mybatis.generator.plugin.BusinessPlugin" >
+		<plugin type="net.yuanmomo.dwz.mybatis.generator.plugin.BusinessControllerPlugin" >
 			<property name="businessPackageName" value="${businessPackage}"/>
 			<property name="controllerPackageName" value="${controllerPackage}"/>
 		</plugin>

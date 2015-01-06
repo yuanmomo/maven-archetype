@@ -21,12 +21,13 @@
 		<plugin type="net.yuanmomo.dwz.mybatis.generator.plugin.ToStringPlugin" />
 		
 		<!-- MyBatis generator 额外java接口和xmlmaper插件 -->
-		<plugin type="net.yuanmomo.dwz.mybatis.generator.plugin.DAOPlugin" >
-			<property name="typeName" value="DAO"/>
-		</plugin>
+<!-- 		<plugin type="net.yuanmomo.dwz.mybatis.generator.plugin.DAOPlugin" > -->
+<!-- 			<property name="typeName" value="DAO"/> -->
+<!-- 		</plugin> -->
 		<!-- MyBatis generator 额外Business插件 -->
 		<plugin type="net.yuanmomo.dwz.mybatis.generator.plugin.BusinessPlugin" >
-			<property name="packageName" value="${businessPackage}"/>
+			<property name="businessPackageName" value="${businessPackage}"/>
+			<property name="controllerPackageName" value="${controllerPackage}"/>
 		</plugin>
 		
 		<commentGenerator>
@@ -54,7 +55,10 @@
 		</javaClientGenerator>
 		
 		<table tableName="test" domainObjectName="Test" >
+			<!-- 生成的business文件名称,不配置，则不会生成  -->
 			<property name="generatedBusinessName" value="TestBusiness"/>
+			<!-- 生成的controller文件名称，不配置，则不会生成，如果没有配置  generatedBusinessName，也不会生成-->
+			<property name="generatedControllerName" value="TestController"/>
 			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
 	</context>

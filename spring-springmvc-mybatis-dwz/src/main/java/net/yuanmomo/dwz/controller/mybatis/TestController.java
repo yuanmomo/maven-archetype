@@ -1,4 +1,4 @@
-package net.yuanmomo.dwz.controller;
+package net.yuanmomo.dwz.controller.mybatis;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
 	private static Logger logger = LoggerFactory
 			.getLogger(TestController.class);
+
 	@Autowired
 	private TestBusiness testBusiness;
 
@@ -31,7 +32,7 @@ public class TestController {
 	@ResponseBody
 	public AjaxResponseBean selectTestList(
 			@RequestParam("conditionType") Short conditionType,
-			@RequestParam("conditionValue") String conditionValue,
+			@RequestParam("conditionType") String conditionValue,
 			@ModelAttribute PaginationBean paginationBean) {
 		try {
 			int currentPage = paginationBean.getPageNum();
@@ -102,18 +103,6 @@ public class TestController {
 		}
 	}
 
-	static class TestList {
-		private List<Test> testList;
-
-		public List<Test> getTestList() {
-			return testList;
-		}
-
-		public void setTestList(List<Test> testList) {
-			this.testList = testList;
-		}
-	}
-
 	@RequestMapping(value = "batchUpdateSaveTest.do")
 	@ResponseBody
 	public AjaxResponseBean batchUpdateSaveTest(
@@ -135,4 +124,15 @@ public class TestController {
 		}
 	}
 
+	static class TestList {
+		private List<Test> testList;
+
+		public List<Test> getTestList() {
+			return testList;
+		}
+
+		public void setTestList(List<Test> testList) {
+			this.testList = testList;
+		}
+	}
 }

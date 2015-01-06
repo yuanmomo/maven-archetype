@@ -78,6 +78,10 @@ public class TestBusiness {
         return updateCount;
     }
 
+    public Test getTestByKey(Long key) throws Exception {
+        return this.testMapper.selectByPrimaryKey(key);
+    }
+
     public List<Test> selectTestList(TestParam param) throws Exception {
         return this.testMapper.selectByExample(param);
     }

@@ -1,0 +1,53 @@
+<div class="pageContent">
+	<form method="post" action="h/platform/insertPlatform.do" class="pageForm" id="addPlatformForm">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>平台名称：</label>
+				<input type="text" size="25" name="name" id="name"  class="required"/>
+			</div>
+			<div class="unit">
+				<label>包名：</label>
+				<input type="text" size="25" name="packageName" id="packageName"  class="required"/>
+			</div>
+			<div class="unit">
+				<label>AppKey：</label>
+				<input type="text" size="25" name="keyStr" id="keyStr"  class="required"/>
+			</div>
+			<div class="unit">
+				<label>API主密码：</label>
+				<input type="text" size="25" name="secStr" id="secStr"  class="required"/>
+			</div>
+			<div class="unit">
+				<label>push开关：</label>
+				<select name="pushStatus" id="pushStatus">
+					<option value="0">关闭</option>
+					<option value="1"  selected="selected">打开</option>
+				</select>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="reset" onclick="">重置</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+<!--
+var options = {
+	type : "POST",
+	beforeSubmit : chanelSubmit,
+	success : function(response) {
+		selfCallBack(response);
+		$.pdialog.closeCurrent();
+		changePlatformlSelectedConditon();
+	}
+};
+function chanelSubmit(){
+	return savePlatform('addPlatformForm',"insert");
+}
+$("#addPlatformForm",$.pdialog.getCurrent()).ajaxForm(options);
+//-->
+</script>

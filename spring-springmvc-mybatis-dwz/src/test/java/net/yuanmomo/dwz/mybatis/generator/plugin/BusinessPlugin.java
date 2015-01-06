@@ -28,6 +28,7 @@ import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.config.GeneratedKey;
 import org.mybatis.generator.config.PropertyRegistry;
 
 /**
@@ -239,6 +240,22 @@ public class BusinessPlugin extends PluginAdapter {
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
         
+        // add selectXXXByKey
+        // 判断是否包含主键
+        GeneratedKey generatedKey = introspectedTable.getTableConfiguration().getGeneratedKey();
+        String keyColumn = generatedKey.getColumn();
+        FullyQualifiedJavaType keyType = introspectedTable.getColumn(keyColumn).getFullyQualifiedJavaType();
+        if(generatedKey != null){
+	        method = new Method();
+	        method.setVisibility(JavaVisibility.PUBLIC);
+	        method.setReturnType(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()));
+	        method.setName("get" + beanName + "ByKey"); //$NON-NLS-1$
+	        method.addParameter(new Parameter(keyType, "key")); //$NON-NLS-1$
+	        method.addException(new FullyQualifiedJavaType(Exception.class.getName()));
+	        method.addBodyLine("return this."+ mapperFieldName +".selectByPrimaryKey(key);"); 
+	        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+	        topLevelClass.addMethod(method);
+        }
         
         // add selectList
         method = new Method();
@@ -303,7 +320,6 @@ public class BusinessPlugin extends PluginAdapter {
         // 添加business包
         topLevelClass.addImportedType(businessType);
         // mapper文件的名称
-        topLevelClass.addImportedType(mapperFieldNameType);
         String businessFieldName = lowerFirstChar(javaBusinessName);
         
         // add logger
@@ -324,6 +340,32 @@ public class BusinessPlugin extends PluginAdapter {
         business.setName(businessFieldName);
         commentGenerator.addFieldComment(business, introspectedTable);
         topLevelClass.addField(business);
+        
+        // add getXXXByKey
+        if(generatedKey != null){
+        	 method = new Method();
+             method.addAnnotation("@RequestMapping(value = \"get" + beanName + "ByKey.do\")");
+             method.addAnnotation("@ResponseBody");
+             method.setVisibility(JavaVisibility.PUBLIC);
+             method.setReturnType(new FullyQualifiedJavaType(AjaxResponseBean.class.getName()));
+             method.setName("get" + beanName + "ByKey");
+             Parameter param = new Parameter(keyType, generatedKey.getColumn());
+             param.addAnnotation("@RequestParam(\"" + generatedKey.getColumn() + "\") ");
+             method.addParameter(param); 
+             // 方法body
+             method.addBodyLine("try {");
+             method.addBodyLine("if(" + generatedKey.getColumn() + " == null || " + generatedKey.getColumn() + " < 0){");
+             method.addBodyLine("return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
+             method.addBodyLine("}");
+             method.addBodyLine("Test result = this.testBusiness.getTestByKey(" + generatedKey.getColumn() + ");");
+             method.addBodyLine("return AjaxResponseBean.getReturnValueResponseBean(result);");
+             method.addBodyLine("} catch (Exception e) {");
+             method.addBodyLine("logger.error(\"主键获取详情异常;key=\"+" + generatedKey.getColumn() + " + e.getMessage());");
+             method.addBodyLine("return AjaxResponseBean.getErrorResponseBean(\"主键获取详情异常;key=\"+" + generatedKey.getColumn() + " + e.getMessage());");
+             method.addBodyLine("}");
+             commentGenerator.addGeneralMethodComment(method, introspectedTable);
+             topLevelClass.addMethod(method);
+        }
         
         // add selectBeanList
         method = new Method();
@@ -347,30 +389,32 @@ public class BusinessPlugin extends PluginAdapter {
         method.addBodyLine("int pageSize = paginationBean.getNumPerPage(); ");
         method.addBodyLine("");
         method.addBodyLine("if(pageSize < 1){");
-        method.addBodyLine("	return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
+        method.addBodyLine("return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
         method.addBodyLine("}");
         method.addBodyLine("if(currentPage<1){");
-        method.addBodyLine("	return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
+        method.addBodyLine("return AjaxResponseBean.Const.PARAMETER_INVALID_ERROR_RESPONSE_BEAN; ");
         method.addBodyLine("}");
         method.addBodyLine("// 构造查询参数");
-        method.addBodyLine("			"+criteriaName + " param =new " + criteriaName + "();");
-        method.addBodyLine("//			"+criteriaName + ".Criteria criteria = param.createCriteria();");
+        method.addBodyLine(""+criteriaName + " param =new " + criteriaName + "();");
+        method.addBodyLine("//"+criteriaName + ".Criteria criteria = param.createCriteria();");
         method.addBodyLine("");
         method.addBodyLine("// 根据参数设置查询条件");
         method.addBodyLine("");
         method.addBodyLine("// 取得当前查询的总记录结果");
         method.addBodyLine("int total = this." + businessFieldName + ".count" + beanName + "List(param);");
-        method.addBodyLine("if(total == 0){ // 没有记录数");
-        method.addBodyLine("	return AjaxResponseBean.getNoDataReturnValueResponseBean();");
+        method.addBodyLine("if(total == 0){");
+        method.addBodyLine("// 没有记录数");
+        method.addBodyLine("return AjaxResponseBean.getNoDataReturnValueResponseBean();");
         method.addBodyLine("}");
         method.addBodyLine("paginationBean.setTotalCount(total);");
         method.addBodyLine("// 判断当前请求的页码有没有超过总页数");
         method.addBodyLine("int totalPages = PaginationUtil.getPages(total, pageSize);");
         method.addBodyLine("paginationBean.setTotalPages(totalPages);");
         method.addBodyLine("");
-        method.addBodyLine("if(currentPage > totalPages){ // 当前页超过总页数,取最大数");
-        method.addBodyLine("	currentPage = totalPages;");
-        method.addBodyLine("	paginationBean.setPageNum(currentPage);");
+        method.addBodyLine("if(currentPage > totalPages){");
+        method.addBodyLine("// 当前页超过总页数,取最大数");
+        method.addBodyLine("currentPage = totalPages;");
+        method.addBodyLine("paginationBean.setPageNum(currentPage);");
         method.addBodyLine("}");
         method.addBodyLine("");
         method.addBodyLine("// 设置排序");

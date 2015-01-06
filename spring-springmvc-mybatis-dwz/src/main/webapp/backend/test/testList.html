@@ -1,0 +1,167 @@
+<form id="pagerForm" method="post" action="test/selectTestList.do">
+	 <input type="hidden" name="pageNum" id="pageNum" value="1" />
+	 <input type="hidden" name="numPerPage" id="numPerPage" value="10" />
+	 <input type="hidden" name="status" id="status" value="" />
+	 
+	 <input type="hidden" name="conditionType" id="conditionType" value="" />
+	 <input type="hidden" name="conditionValue" id="conditionValue" value="" />
+</form>
+<div class="pageHeader">
+	<div class="searchBar">
+		<table class="searchContent">
+			<tr>
+				<td>
+					搜索类型:
+				</td>
+				<td>
+					<select class="combox" name="searchConditionType" id="searchConditionType">
+						<option value="2" selected="selected">描述</option>
+						<option value="1" >key</option>
+					</select>
+				</td>
+				<td>
+					<input type="text" size="25" name="searchConditionValue" id="searchConditionValue"/>
+					<button type="button" onclick="selectTestListByConditon()">搜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;索</button>
+				</td>
+			</tr>
+		</table>
+		<div class="subBar">
+			<ul>
+				<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框" 
+					style="display: none;margin-right: 20px;"><span>高级检索</span></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li class="line hover">line</li>
+			<li class=""><a class="edit" href="" onclick="saveTestOrder();return false;"  title="确定要保存吗?"
+				callback="selfCallBack"><span>批量保存</span></a></li>
+		</ul>
+	</div>
+	<div id="w_list_print">
+	<form id="testDetailListForm">
+		<table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>number</th>
+					<th>version</th>
+				</tr>
+			</thead>
+			<tbody id="testDetaiList">
+			</tbody>
+		</table>
+	</form>
+	</div>
+	<div class="panelBar">
+		<div class="pages">
+			<span>显示</span>
+			<select class="combox" id="numPerPageSelect" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'testDetaiList')">
+				<option value="15">15</option>
+				<option value="20" selected="selected">20</option>
+			</select>
+			<span>条，共<span id="totalCount" style="float: none;"></span>条</span>
+		</div>
+		<div class="pagination" targettype="navTab" callback="selectTestListCallback(response)" rel="testDetaiList" totalcount="0" numperpage="10" pagenumshown="10" currentpage="1"></div>
+	</div>
+</div>
+<script id="testDetailTemplate" type="text/template">
+<%
+_.each(dataList, function(test,index) {%>
+	<tr target="sid_user" rel="test<%=test.id%>">
+		<td><%=test.id%><input id="testDetail<%=test.id%>" value="<%=test.id%>" name="" tempName="testList[<%=index%>].id" type="hidden"/></td>
+		<td>
+			<input value="<%=test.number%>" name="" class="required"  style="width: 95%;"
+				tempName="testList[<%=index%>].number" dirtyCheck="true" oldValue="<%=test.number%>" 
+				refId="testDetail<%=test.id%>"/>
+		</td>
+		<td>
+			<input value="<%=test.version%>" name="" class="required"  style="width: 95%;"
+				tempName="testList[<%=index%>].version" dirtyCheck="true" oldValue="<%=test.version%>" 
+				refId="testDetail<%=test.id%>"/>
+		</td>
+	</tr>
+<%});%>
+</script>
+<script type="text/javascript">
+	/**
+	 * 根据用户选择的条件和输入的值搜索配置选项
+	 */
+	function selectTestListByConditon(){
+		// 取得当前选择的搜索类型
+		var searchConditionType = $("#searchConditionType", navTab.getCurrentPanel()).val();
+		
+		// 检查页面下拉框选择数据是否正确
+		if( searchConditionType < 0){
+			return;
+		}
+		
+		// 设置用户输入的搜索值
+		var condtionValue = $("#searchConditionValue", navTab.getCurrentPanel()).val();
+		if(condtionValue == ""){
+			alertMsg.error("请输入查询条件"); 
+			return;
+		}
+		// 设置提交参数
+		$("#conditionType", navTab.getCurrentPanel()).val(searchConditionType);
+		$("#conditionValue", navTab.getCurrentPanel()).val(condtionValue);
+		$("#pageNum",navTab.getCurrentPanel()).val(1); // 设置当前显示第一页
+		$("#numPerPage",navTab.getCurrentPanel())
+			.val($("#numPerPageSelect",navTab.getCurrentPanel()).val()); // 设置pageSize
+		// 调用分页函数
+		dwzPageBreak({targetType:"navTab", rel:"testDetaiList", 
+			data:$("#pagerForm",navTab.getCurrentPanel()).serialize(),
+			callback : "selectTestListCallback(response)"});
+	}
+	
+	/**
+	 * 	分页显示时,回调函数,页面显示分页数据
+	 * @param response
+	 */
+	function selectTestListCallback(response){
+		var valueObj = response.returnValue;
+		dataList = valueObj.result;
+		paginationDataHandler("testDetaiList","testDetailTemplate",dataList);
+	}
+	
+	
+	/**
+	 * 保存渠道排序
+	 * 
+	 */
+	function saveTestOrder(){
+		var isDirty = dirtyCheck("navTab");
+		if(!isDirty){
+			alertMsg.error("没有修改任何信息");
+			return false;
+		}
+		// 检验表单
+		if (!$("#testDetailListForm", $.pdialog.getCurrent()).valid()) {
+			return false;
+		}
+		
+		$.ajaxSubmit({
+			type:"POST",
+			url:"test/batchUpdateSaveTest.do", 
+			data :$("#testDetailListForm",navTab.getCurrentPanel()).serialize(),
+			callback:function (response){
+				alertMsg.info(response.message);
+				updateDirtyForm("navTab");// 更新dirty form 页面数据
+			}
+		});
+	}
+	function selectTestList(){
+		$("#pageNum",navTab.getCurrentPanel()).val(1); // 设置当前显示第一页
+		$("#numPerPage",navTab.getCurrentPanel())
+			.val($("#numPerPageSelect",navTab.getCurrentPanel()).val()); // 设置pageSize
+		// 调用分页函数
+		dwzPageBreak({targetType:"navTab", rel:"adTaskDetaiList", 
+			data:$("#pagerForm",navTab.getCurrentPanel()).serialize(),
+			callback : "selectTestListCallback(response)"});
+	}
+	selectTestList();
+</script>

@@ -60,7 +60,6 @@ public class BusinessPlugin extends PluginAdapter {
 	private static List<String> controllerImportStringList = new ArrayList<String>();
 	static{
 		controllerImportStringList.add("java.util.List");
-		controllerImportStringList.add("javax.servlet.http.HttpServletRequest");
 		controllerImportStringList.add("net.yuanmomo.dwz.bean.AjaxResponseBean");
 		controllerImportStringList.add("net.yuanmomo.dwz.util.CollectionUtil");
 		controllerImportStringList.add("net.yuanmomo.dwz.util.PaginationUtil");
@@ -69,7 +68,6 @@ public class BusinessPlugin extends PluginAdapter {
 		controllerImportStringList.add("org.slf4j.LoggerFactory");
 		controllerImportStringList.add("org.springframework.beans.factory.annotation.Autowired");
 		controllerImportStringList.add("org.springframework.stereotype.Controller");
-		controllerImportStringList.add("org.springframework.ui.ModelMap");
 		controllerImportStringList.add("org.springframework.web.bind.annotation.ModelAttribute");
 		controllerImportStringList.add("org.springframework.web.bind.annotation.RequestMapping");
 		controllerImportStringList.add("org.springframework.web.bind.annotation.RequestParam");

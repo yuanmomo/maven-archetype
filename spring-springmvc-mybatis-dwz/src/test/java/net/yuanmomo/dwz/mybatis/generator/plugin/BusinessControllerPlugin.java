@@ -356,7 +356,7 @@ public class BusinessControllerPlugin extends PluginAdapter {
 		method.addBodyLine("try {");
 		method.addBodyLine("// 数据校验");
 		method.addBodyLine("");
-		method.addBodyLine("this.testBusiness.insertSelective(test);");
+		method.addBodyLine("this." + businessFieldName + ".insertSelective(" + beanParamName + ");");
 		method.addBodyLine("return AjaxResponseBean.Const.SUCCESS_RESPONSE_BEAN;");
 		method.addBodyLine("} catch (Exception e) {");
 		method.addBodyLine("logger.error(\"插入异常\" + e.getMessage());");

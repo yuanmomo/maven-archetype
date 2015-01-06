@@ -12,7 +12,7 @@ tmp/
 *~.nib
 local.properties
 .loadpath
-/target/*
+*/target/*
 
 # External tool builders
 .externalToolBuilders/

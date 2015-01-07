@@ -1,8 +1,10 @@
 package net.yuanmomo.mybatis.mapper;
 
 import java.util.List;
+
 import net.yuanmomo.bean.Test;
 import net.yuanmomo.bean.TestParam;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TestMapper {

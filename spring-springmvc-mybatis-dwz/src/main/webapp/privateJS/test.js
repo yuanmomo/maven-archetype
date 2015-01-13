@@ -50,7 +50,7 @@ function saveTestOrder(){
 		return false;
 	}
 	// 检验表单
-	if (!$("#testDetailListForm", $.pdialog.getCurrent()).valid()) {
+	if (!$("#testDetailListForm",navTab.getCurrentPanel()).valid()) {
 		return false;
 	}
 	

@@ -1,0 +1,39 @@
+<!-- scan表示自动扫描此配置文件是否被修改，即自动刷新配置。 scanPeriod表示监测周期，默认单位milliseconds -->
+<configuration scan="true" scanPeriod="30 seconds">
+	
+	<contextName>active-record-mybatis</contextName>
+	<property name="LOG_HOME" value="E:/log" />
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<!-- <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+
+	<!-- 按照每天生成日志文件 --> 
+	<appender name="systemLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<Prudent>true</Prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名-->
+			<FileNamePattern>${LOG_HOME}/systemLog/system.log.%d{yyyy-MM-dd}</FileNamePattern> 
+			<!-- keep 365 days worth of history -->
+			<MaxHistory>365</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符--> 
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n </pattern>
+		</layout>
+	</appender> 
+	
+	<logger name="systemLog" level="ALL">
+		<appender-ref ref="systemLog" />
+	</logger>
+	
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root> 
+</configuration>

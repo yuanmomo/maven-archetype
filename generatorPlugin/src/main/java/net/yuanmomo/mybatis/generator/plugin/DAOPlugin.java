@@ -2,7 +2,7 @@
 /**
  * Project Name : Tools
  * File Name    : DAOPlugin.java
- * Package Name : net.yuanmomo.tools.db.orm.mybatis.generator.plugin.dao
+ * Package Name : net.yuanmomo.dwz.tools.db.orm.mybatis.generator.plugin.dao
  * Created on   : 2014-2-17下午8:23:27
  * Author       : Hongbin Yuan
  * Blog         : yuanmomo.net
@@ -53,7 +53,6 @@ public class DAOPlugin extends PluginAdapter {
 	 * @return
 	 * @see org.mybatis.generator.api.Plugin#validate(java.util.List)
 	 */
-	@Override
 	public boolean validate(List<String> warnings) {
 		return true;
 	}
@@ -153,23 +152,5 @@ public class DAOPlugin extends PluginAdapter {
 		gxfList.add(gxf);
         
 		return gxfList;
-	}
-
-	@Override
-	public boolean sqlMapGenerated(GeneratedXmlFile sqlMap,
-			IntrospectedTable introspectedTable) {
-//		AbstractXmlGenerator xmlGenerator = new XMLMapperGenerator();
-//		xmlGenerator.setContext(context);
-//		xmlGenerator.setIntrospectedTable(introspectedTable);
-//		xmlGenerator.setProgressCallback(new NullProgressCallback());
-//		xmlGenerator.setWarnings(new ArrayList<String>());
-//		
-//		GeneratedXmlFile sqlMapNew = new GeneratedXmlFile(xmlGenerator.getDocument(),
-//				sqlMap.getFileName(), sqlMap.getTargetPackage(),
-//				sqlMap.getTargetProject(),
-//                false, context.getXmlFormatter());
-//		
-//		sqlMap = sqlMapNew;
-		return true;
 	}
 }

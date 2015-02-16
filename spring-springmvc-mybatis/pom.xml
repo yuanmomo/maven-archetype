@@ -41,11 +41,6 @@
 			<version>3.2.3</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mybatis.generator</groupId>
-			<artifactId>mybatis-generator-core</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.1</version>
@@ -133,6 +128,12 @@
 		    <artifactId>logback-ext-spring</artifactId>
 		    <version>0.1.1</version>
 		    <scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.yuanmomo.mybatis.generator</groupId>
+			<artifactId>generatorPlugin</artifactId>
+			<version>1.1.0</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>

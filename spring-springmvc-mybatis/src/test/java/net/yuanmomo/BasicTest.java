@@ -1,6 +1,7 @@
 package net.yuanmomo;
 
-import net.yuanmomo.business.mybatis.TestBusiness;
+import net.yuanmomo.bean.Temp;
+import net.yuanmomo.business.mybatis.TempBusiness;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,14 +13,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = "classpath:config/ApplicationContext.xml")
 public class BasicTest {
 	@Autowired
-	protected TestBusiness testBusiness = null;
+	protected TempBusiness TempBusiness = null;
 
 	@Test
-	public void test() {
+	public void Temp() {
 		try {
-			net.yuanmomo.bean.Test t = new net.yuanmomo.bean.Test();
+			Temp t = new Temp();
 			t.setNumber(11);
-			int count = testBusiness.insertSelective(t);
+			int count = TempBusiness.insertSelective(t);
 			if (count > 0) {
 				System.out.println("插入成功");
 			} else {

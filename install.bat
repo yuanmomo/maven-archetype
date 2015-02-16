@@ -7,10 +7,18 @@ ECHO --------------------------------------------------------------------
 ECHO @Copyright 2013 Create By yuanmomo QQ:342398690 日期：2013-12-10 22:59:00
 ECHO.
 ECHO 重要：直接双击该文件即可进行安装
+
+ECHO 开始编译，安装MBG自定义插件包
+cd %cd%\generatorPlugin
+ECHO maven clean compile package install
+SET COMMAND=mvn clean compile package install
+CALL %COMMAND%
+cd ..
+ECHO 安装MBG自定义插件包成功
+
 ECHO --------------------------------------------------------------------
 ECHO 本批处理执行后，将作以下一些设置,确认后继续：
 ECHO 1、请根据README.md指示，创建一个项目来确定是否安装成功
-cls
 ECHO. 
 ECHO --------------------------------------------------------------------
 echo         请选择要安装的maven-archetype:

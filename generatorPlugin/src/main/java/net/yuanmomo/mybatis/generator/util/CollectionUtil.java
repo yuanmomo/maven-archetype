@@ -315,7 +315,7 @@ public class CollectionUtil {
 	 */
 	public static <K,V> Set<V> valueToTreeSet(Map<K,V> map){
 		if(isNotNull(map)){
-			Set<V> set = new TreeSet<>();
+			Set<V> set = new TreeSet<V>();
 			for(V v : map.values()){
 				System.out.println(v.hashCode());
 				System.out.println(set.contains(v));

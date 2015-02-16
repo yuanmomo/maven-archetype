@@ -21,7 +21,6 @@ public class TempBusiness {
      *
      * @mbggenerated
      */
-    @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(TempBusiness.class);
 
     /**

@@ -4,11 +4,11 @@
 
 	<groupId>net.yuanmomo.mybatis.generator</groupId>
 	<artifactId>generatorPlugin</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>generatorPlugin</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/yuanmomo/maven-archetype/tree/master/generatorPlugin</url>
 	
 	<repositories>
 		<repository>

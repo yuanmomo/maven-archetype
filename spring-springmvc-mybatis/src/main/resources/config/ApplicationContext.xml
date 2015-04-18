@@ -8,21 +8,15 @@
    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
-
+	<!-- ================================ properties 配置文件 ==================================== -->
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations"
 			value="classpath:config/jdbc.properties" />
 	</bean>
-	<!-- Spring bean configuration. Tell Spring to bounce off BoneCP -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
-		<property name="targetDataSource">
-			<ref local="mainDataSource" />
-		</property>
-	</bean>
 
-	<!-- BoneCP configuration -->
+	<!-- ================================ 数据源 ================================================= -->
+	<!-- BoneCP 数据源配置 -->
 	<bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="${driver}" />
@@ -40,34 +34,49 @@
 		<property name="idleConnectionTestPeriodInSeconds" value="18000" />
 		<property name="idleMaxAgeInMinutes" value="300" />
 		<property name="maxConnectionAgeInSeconds" value="28700" />
+		<!-- 连接超时时长 -->
 		<property name="connectionTimeoutInMs" value="60000" />
-		<!--
-		If set to true, create a new thread that monitors
-		a connection and displays warnings 
-		if application failed to  
-	 	close the connection. FOR DEBUG PURPOSES ONLY! 
-	 	-->
+		<!-- 如果设置为true，打开一个新线程监控，监控连接关闭情况，开发环境配置 -->
 		<property name="closeConnectionWatch" value="true" />
+		<!-- 打印执行的sql -->
 		<property name="logStatementsEnabled" value="true" />
 	</bean>
 
-	<!-- ================================事务相关控制================================================= -->
+	<!-- 懒加载数据源，在使用的时候才初始化连接 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+		<property name="targetDataSource">
+			<ref local="mainDataSource" />
+		</property>
+	</bean>
+	
+	<!-- ================================ 事务相关控制 ============================================== -->
+	<!-- 启用annotation配置 -->
 	<context:annotation-config />
+	
+	<!-- 启用动态代理配置事务 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!-- 事务管理器 -->
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<!-- 扫描需要事务管理的包下所有类 -->
 	<context:component-scan base-package="net.yuanmomo.business" />
-	<tx:annotation-driven transaction-manager="txManager"
-		proxy-target-class="true" />
+	
+	<!-- 启用基于annotation的事务配置方式 -->
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
 
-	<!-- MyBatis sqlSessionFactory -->
+	<!-- ================================ MyBatis ============================================= -->
+	<!-- MyBatis 数据源和bean配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
   		<property name="typeAliasesPackage" value="net.yuanmomo.bean"/>
 	</bean>
 
+	<!-- MyBatis自动扫描mapper和xml文件 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="net.yuanmomo.mybatis.mapper" />
 	</bean>

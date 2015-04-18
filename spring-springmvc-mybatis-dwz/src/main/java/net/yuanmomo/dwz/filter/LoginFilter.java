@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.yuanmomo.dwz.resources.GlobalParam;
-import net.yuanmomo.dwz.util.CollectionUtil;
-import net.yuanmomo.dwz.util.StringUtil;
+import net.yuanmomo.mybatis.generator.util.CollectionUtil;
+import net.yuanmomo.mybatis.generator.util.StringUtil;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 

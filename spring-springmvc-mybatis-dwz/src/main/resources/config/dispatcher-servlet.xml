@@ -10,6 +10,8 @@
    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd  
    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	
+	<!-- Spring mvc 返回json时，默认日志格式 -->
 	<bean name="objectMapper" class="net.yuanmomo.dwz.util.json.CustomObjectMapper">
 		<property name="dateFormat">
 			<bean class="java.text.SimpleDateFormat">
@@ -17,6 +19,7 @@
 			</bean>
 		</property>
 	</bean>
+	
 	<!-- 启动Spring MVC的注解功能 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
@@ -40,17 +43,18 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<context:annotation-config />
 	<!-- 把标记了@Controller注解的类转换为bean -->
 	<context:component-scan base-package="net.yuanmomo.dwz.controller" />
 
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/" p:suffix=".html" />
 		
+	<!-- 验证码图片 -->
 	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
 		<property name="config">
 			<bean class="com.google.code.kaptcha.util.Config">

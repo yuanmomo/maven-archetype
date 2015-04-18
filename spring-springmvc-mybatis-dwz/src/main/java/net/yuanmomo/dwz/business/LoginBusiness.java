@@ -14,7 +14,7 @@ package net.yuanmomo.dwz.business;
 import net.yuanmomo.dwz.bean.MUser;
 import net.yuanmomo.dwz.resources.GlobalParam;
 import net.yuanmomo.dwz.util.MD5;
-import net.yuanmomo.dwz.util.StringUtil;
+import net.yuanmomo.mybatis.generator.util.StringUtil;
 
 import org.springframework.stereotype.Service;
 

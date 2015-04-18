@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.yuanmomo.dwz.bean.AjaxResponseBean;
 import net.yuanmomo.dwz.business.LoginBusiness;
 import net.yuanmomo.dwz.log.LogFactory;
 import net.yuanmomo.dwz.resources.GlobalParam;
+import net.yuanmomo.mybatis.generator.util.AjaxResponseBean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

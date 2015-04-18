@@ -14,7 +14,7 @@ package net.yuanmomo.dwz.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.yuanmomo.dwz.bean.AjaxResponseBean;
+import net.yuanmomo.mybatis.generator.util.AjaxResponseBean;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

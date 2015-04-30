@@ -5,7 +5,7 @@
 <generatorConfiguration>
 	
 	<!-- propertis 配置文件 -->
-	<properties resource="config/generatorConfig.properties" />
+	<properties resource="mybatis/generatorConfig.properties" />
 	
 	<!-- MBG根配置 -->
 	<context id="MBG" targetRuntime="MyBatis3" defaultModelType="conditional">

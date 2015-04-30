@@ -1,7 +1,7 @@
 <!-- scan表示自动扫描此配置文件是否被修改，即自动刷新配置。 scanPeriod表示监测周期，默认单位milliseconds -->
 <configuration scan="true" scanPeriod="30 seconds">
 	
-	<contextName>aws</contextName>
+	<contextName>spring-springmvc-mybatis-dwz</contextName>
 	<property name="LOG_HOME" value="./log" />
 	
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 

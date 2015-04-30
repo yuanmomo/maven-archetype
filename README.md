@@ -98,7 +98,8 @@ maven项目初始化末模板
 	> 
 	> 3. 修改 generatorConfig.xml 文件，修改自定义插件配置。
 	> 
-	> 4. 添加要自动生成的表配置。具体配置，请翻阅 MyBatis Generator 官方文档。 
+	> 4. 添加要自动生成的表配置。具体配置，请翻阅 MyBatis Generator 官方文档。配置Table标签时，可以运行src/test/java下面的
+	> XMLGenerator.java 类，如果jdbc信息配置正确,将会直接生成每一张表的xml配置，可以直接拷贝过去再做修改。
 	> 
 	> 5. 运行 scr/test/java 中的 GeneratorMain.java 类，查看是否生成文件。
 

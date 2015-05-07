@@ -128,16 +128,17 @@ public class ControllerPluginUtil{
         // add getXXXByKey
         // 判断是否包含主键
         GeneratedKey generatedKey = introspectedTable.getTableConfiguration().getGeneratedKey();
-        String keyColumn = generatedKey.getColumn();
-        FullyQualifiedJavaType keyType = introspectedTable.getColumn(keyColumn).getFullyQualifiedJavaType();
         if(generatedKey != null){
-        	List<Method> getByKeyMethodList = GetByKeyControllerGenerator.generator(beanType, beanName, businessFieldName,
-        			keyType,keyColumn);
-            if(!CollectionUtil.isNull(getByKeyMethodList)){
-            	methodList.addAll(getByKeyMethodList);
-            }
+	        String keyColumn = generatedKey.getColumn();
+	        FullyQualifiedJavaType keyType = introspectedTable.getColumn(keyColumn).getFullyQualifiedJavaType();
+	        if(generatedKey != null){
+	        	List<Method> getByKeyMethodList = GetByKeyControllerGenerator.generator(beanType, beanName, businessFieldName,
+	        			keyType,keyColumn);
+	            if(!CollectionUtil.isNull(getByKeyMethodList)){
+	            	methodList.addAll(getByKeyMethodList);
+	            }
+	        }
         }
-        
         // add selectBeanList
         List<Method> selectListMethodList = SelectListControllerGenerator.generator(beanType, beanName, businessFieldName,
         		criteriaType.getShortName());

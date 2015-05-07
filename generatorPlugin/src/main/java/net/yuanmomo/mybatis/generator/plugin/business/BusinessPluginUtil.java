@@ -127,13 +127,15 @@ public class BusinessPluginUtil {
         // add selectXXXByKey
         // 判断是否包含主键
         GeneratedKey generatedKey = introspectedTable.getTableConfiguration().getGeneratedKey();
-        String keyColumn = generatedKey.getColumn();
-        FullyQualifiedJavaType keyType = introspectedTable.getColumn(keyColumn).getFullyQualifiedJavaType();
         if(generatedKey != null){
-        	List<Method> getByKeyMethodList = GetByKeyBusinessGenerator.generator(beanType, beanName, mapperFieldName,keyType);
-            if(!CollectionUtil.isNull(getByKeyMethodList)){
-            	methodList.addAll(getByKeyMethodList);
-            }
+	        String keyColumn = generatedKey.getColumn();
+	        FullyQualifiedJavaType keyType = introspectedTable.getColumn(keyColumn).getFullyQualifiedJavaType();
+	        if(generatedKey != null){
+	        	List<Method> getByKeyMethodList = GetByKeyBusinessGenerator.generator(beanType, beanName, mapperFieldName,keyType);
+	            if(!CollectionUtil.isNull(getByKeyMethodList)){
+	            	methodList.addAll(getByKeyMethodList);
+	            }
+	        }
         }
         
         // add selectList

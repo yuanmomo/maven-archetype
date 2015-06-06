@@ -38,7 +38,7 @@ public class BasicTest {
 	public void testSelectList() {
 		try {
 			TestParam param = new TestParam();
-			param.createCriteria().andIdGreaterThan(1L).andIdLessThan(4L);
+			param.createCriteria().andIdGreaterThan(0L).andIdLessThan(100L);
 			List<BeanMap> result= testBusiness.selectTestList2(param);
 			System.out.println(result);
 		} catch (Exception e) {

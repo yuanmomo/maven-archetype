@@ -99,7 +99,8 @@ public class TempController {
             }
             // 构造查询参数
             TempParam param =new TempParam();
-            //TempParam.Criteria criteria = param.createCriteria();
+            
+            TempParam.Criteria criteria = param.createCriteria();
             
             // 根据参数设置查询条件
             

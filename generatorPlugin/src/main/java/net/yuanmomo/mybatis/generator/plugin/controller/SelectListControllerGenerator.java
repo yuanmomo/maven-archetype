@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.yuanmomo.mybatis.generator.util.AjaxResponseBean;
 import net.yuanmomo.mybatis.generator.util.PaginationBean;
+import net.yuanmomo.mybatis.generator.util.StringUtil;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
@@ -72,9 +73,9 @@ public class SelectListControllerGenerator {
         method.addBodyLine("param.setStart(start);");
         method.addBodyLine("param.setCount(pageSize);");
         method.addBodyLine("");
-        method.addBodyLine("List<" + beanName + "> configList = this." + businessFieldName + ".select" + beanName + "List(param);");
+        method.addBodyLine("List<" + beanName + "> " + StringUtil.lowerFirstChar(beanName) +"List = this." + businessFieldName + ".select" + beanName + "List(param);");
         method.addBodyLine("");
-        method.addBodyLine("paginationBean.setResult(configList);  // 返回数据结果");
+        method.addBodyLine("paginationBean.setResult(" + StringUtil.lowerFirstChar(beanName) +"List);  // 返回数据结果");
         method.addBodyLine("return AjaxResponseBean.getReturnValueResponseBean(paginationBean);");
         method.addBodyLine("} catch (Exception e) {");
         method.addBodyLine("logger.error(\"查询异常\" + e.getMessage());");

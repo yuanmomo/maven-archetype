@@ -2,26 +2,26 @@
 setlocal EnableDelayedExpansion
 ECHO.
 COLOR 0a
-ECHO. ˵ ��
+ECHO. 说 明
 ECHO --------------------------------------------------------------------
-ECHO @Copyright 2013 Create By yuanmomo QQ:342398690 ���ڣ�2013-12-10 22:59:00
+ECHO @Copyright 2013 Create By yuanmomo QQ:342398690 日期：2013-12-10 22:59:00
 ECHO.
-ECHO ��Ҫ��ֱ��˫�����ļ����ɽ��а�װ
+ECHO 重要：直接双击该文件即可进行安装
 
-ECHO ��ʼ���룬��װMBG�Զ�������
+ECHO 开始编译，安装MBG自定义插件包
 cd %cd%\generatorPlugin
 ECHO maven clean compile package install
 SET COMMAND=mvn clean compile package install
 CALL %COMMAND%
 cd ..
-ECHO ��װMBG�Զ��������ɹ�
+ECHO 安装MBG自定义插件包成功
 
 ECHO --------------------------------------------------------------------
-ECHO ��������ִ�к󣬽�������һЩ����,ȷ�Ϻ������
-ECHO 1�������README.mdָʾ������һ����Ŀ��ȷ���Ƿ�װ�ɹ�
+ECHO 本批处理执行后，将作以下一些设置,确认后继续：
+ECHO 1、请根据README.md指示，创建一个项目来确定是否安装成功
 ECHO. 
 ECHO --------------------------------------------------------------------
-echo         ��ѡ��Ҫ��װ��maven-archetype:
+echo         请选择要安装的maven-archetype:
 echo         [0] all
 set a=1
 for /D %%s in (*-*) do ( 
@@ -31,15 +31,15 @@ for /D %%s in (*-*) do (
 ECHO --------------------------------------------------------------------
 ECHO.
 
-REM �ȴ��û�����Ҫ��װ��archetype
-set /p chooseResult=��ѡ��Ҫ��װ��archetype������[]�еı��:0?
+REM 等待用户输入要安装的archetype
+set /p chooseResult=请选择要安装的archetype类型中[]中的编号:0?
 
-REM ���ֱ�ӻس���Ĭ�ϰ�װ����
+REM 如果直接回车，默认安装所有
 if /i '%chooseResult%'=='' (
 set /A chooseResult=0
 )
 
-echo �������ѡ�%chooseResult%
+echo 你输入的选项：%chooseResult%
 
 set current=1
 if %chooseResult% EQU 0 (

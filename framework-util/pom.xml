@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>net.yuanmomo.framework</groupId>
+        <artifactId>framework</artifactId>
+        <version>RELEASE</version>
+    </parent>
+
+	
+    <artifactId>framework-util</artifactId>
+	<version>RELEASE</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.libbasedir>${basedir}/src/main/webapp/WEB-INF/lib</project.libbasedir>
+	</properties>
+
+	<!-- 项目名称 -->
+	<name>framework-util</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>2.2.5</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+	
+</project>

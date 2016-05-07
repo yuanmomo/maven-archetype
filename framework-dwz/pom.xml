@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.yuanmomo.framework</groupId>
+		<artifactId>framework</artifactId>
+		<version>RELEASE</version>
+	</parent>
+
+	<artifactId>framework-dwz</artifactId>
+	<version>RELEASE</version>
+	<packaging>war</packaging>
+
+	<!-- 项目名称 -->
+	<name>framework-dwz</name>
+
+	<!-- 配置开发，测试，正式环境的参数 -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<maven.profile>dev</maven.profile>
+				<!-- 开发环境的日志目录 -->
+				<log.root>./logs/</log.root>
+				<log.root.level>ALL</log.root.level>
+				<log.systemLog.level>ALL</log.systemLog.level>
+
+
+				<!-- mysql 的正式环境参数配置 -->
+				<mysql.host>127.0.0.1</mysql.host>
+				<mysql.port>3306</mysql.port>
+				<mysql.user>root</mysql.user>
+				<mysql.password></mysql.password>
+				<mysql.database>test</mysql.database>
+
+			</properties>
+		</profile>
+
+		<profile>
+			<id>test</id>
+			<properties>
+				<maven.profile>test</maven.profile>
+				<!-- 测试环境的日志目录 -->
+				<log.root>./logs/</log.root>
+				<log.root.level>DEBUG</log.root.level>
+				<log.systemLog.level>DEBUG</log.systemLog.level>
+
+				<!-- mysql 的正式环境参数配置 -->
+				<mysql.host>127.0.0.1</mysql.host>
+				<mysql.port>3306</mysql.port>
+				<mysql.user>root</mysql.user>
+				<mysql.password>root</mysql.password>
+				<mysql.database>test</mysql.database>
+
+			</properties>
+		</profile>
+
+		<profile>
+			<id>product</id>
+			<properties>
+				<maven.profile>product</maven.profile>
+				<!-- 正式环境的日志目录 -->
+				<log.root>./logs/</log.root>
+				<log.root.level>INFO</log.root.level>
+				<log.systemLog.level>INFO</log.systemLog.level>
+
+				<!-- mysql 的正式环境参数配置 -->
+				<mysql.host>127.0.0.1</mysql.host>
+				<mysql.port>3306</mysql.port>
+				<mysql.user>root</mysql.user>
+				<mysql.password>root</mysql.password>
+				<mysql.database>product</mysql.database>
+
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>${project.name}</finalName>
+
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+			<!-- maven 打 jar 包插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<excludes>
+						<exclude>*</exclude>
+						<exclude>*/*</exclude>
+						<exclude>*/*/*</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warName>${project.name}</warName>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp/WEB-INF/lib</directory>
+							<targetPath>WEB-INF/lib</targetPath>
+							<includes>
+								<include>**/*.jar</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<dependencies>
+		<!-- MBG插件 -->
+		<dependency>
+			<groupId>net.yuanmomo.framework</groupId>
+			<artifactId>generator-plugin</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+	</dependencies>
+
+</project>

@@ -96,39 +96,6 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-
-		<plugins>
-			<!-- maven 打 jar 包插件 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<excludes>
-						<exclude>*</exclude>
-						<exclude>*/*</exclude>
-						<exclude>*/*/*</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<warName>${project.name}</warName>
-					<webResources>
-						<resource>
-							<directory>src/main/webapp/WEB-INF/lib</directory>
-							<targetPath>WEB-INF/lib</targetPath>
-							<includes>
-								<include>**/*.jar</include>
-							</includes>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
 
 

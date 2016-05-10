@@ -31,6 +31,8 @@ ECHO 清理项目
 SET COMMAND=mvn -X clean
 CALL %COMMAND%
 
+
+
 ECHO 创建 framework-dwz 项目骨架
 cd framework-dwz
 SET COMMAND=mvn -X clean

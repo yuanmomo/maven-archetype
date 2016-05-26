@@ -28,25 +28,25 @@ public class AjaxResponseBean {
 	
 	/**
 	 * returnValue: 后台相应返回的json数据.
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	private Object returnValue = "";
 
-	public static final int DWZ_STATUSCODE_OK = 200;
-	public static final String DWZ_STATUSCODE_OK_MESSAGE = "操作成功";
-	public static final String DWZ_STATUSCODE_NO_DATA_MESSAGE = "没有数据结果";
-	
-	public static final int DWZ_STATUSCODE_ERROR = 300;
-	public static final String DWZ_STATUSCODE_ERROR_MESSAGE = "操作失败";
-	
-	public static final String DWZ_STATUSCODE_PARAMETER_INVALID_ERROR_MESSAGE = "提交参数格式不正确";
-	
-	public static final int DWZ_STATUSCODE_TIMEOUT = 301;
-	public static final String DWZ_STATUSCODE_TIMEOUT_MESSAGE = "会话超时";
-	
-	public static final int DWZ_STATUSCODE_PERMISSION_DENY = 302;
-	public static final String DWZ_STATUSCODE_PERMISSION_DENY_MESSAGE = "权限不足";
-	
+	public static final int OK = 200;
+	public static final String OK_MESSAGE = "操作成功";
+	public static final String NO_DATA_MESSAGE = "没有数据结果";
+
+	public static final int ERROR = 300;
+	public static final String ERROR_MESSAGE = "操作失败";
+
+	public static final String PARAMETER_INVALID_ERROR_MESSAGE = "提交参数格式不正确";
+
+	public static final int TIMEOUT = 301;
+	public static final String TIMEOUT_MESSAGE = "会话超时";
+
+	public static final int PERMISSION_DENY = 302;
+	public static final String PERMISSION_DENY_MESSAGE = "权限不足";
+
 	public AjaxResponseBean() {}
 
 	private AjaxResponseBean(int statusCode, Object message) {
@@ -71,27 +71,27 @@ public class AjaxResponseBean {
 	public static class Const{
 		/************************************* 操作失败 **********************************************/
 		public static AjaxResponseBean TIMEOUT_RESPONSE_BEAN =
-				new AjaxResponseBean(DWZ_STATUSCODE_TIMEOUT, DWZ_STATUSCODE_TIMEOUT_MESSAGE);
+				new AjaxResponseBean(TIMEOUT, TIMEOUT_MESSAGE);
 		
 		public static AjaxResponseBean NO_PERMISSION_RESPONSE_BEAN =
-				new AjaxResponseBean(DWZ_STATUSCODE_PERMISSION_DENY, DWZ_STATUSCODE_PERMISSION_DENY_MESSAGE);
+				new AjaxResponseBean(PERMISSION_DENY, PERMISSION_DENY_MESSAGE);
 		
 		public static AjaxResponseBean ERROR_RESPONSE_BEAN =
-				new AjaxResponseBean(DWZ_STATUSCODE_ERROR, DWZ_STATUSCODE_ERROR_MESSAGE);
+				new AjaxResponseBean(ERROR, ERROR_MESSAGE);
 		
 		public static AjaxResponseBean PARAMETER_INVALID_ERROR_RESPONSE_BEAN =
-				new AjaxResponseBean(DWZ_STATUSCODE_ERROR,DWZ_STATUSCODE_PARAMETER_INVALID_ERROR_MESSAGE );
+				new AjaxResponseBean(ERROR, PARAMETER_INVALID_ERROR_MESSAGE);
 		
 		/************************************* 操作成功 **********************************************/
 		public static AjaxResponseBean NO_DATA_RESPONSE_BEAN =
-				new AjaxResponseBean(DWZ_STATUSCODE_OK,DWZ_STATUSCODE_NO_DATA_MESSAGE );
+				new AjaxResponseBean(OK, NO_DATA_MESSAGE);
 		
 		public static AjaxResponseBean SUCCESS_RESPONSE_BEAN =
-				new AjaxResponseBean(DWZ_STATUSCODE_OK, DWZ_STATUSCODE_OK_MESSAGE);
+				new AjaxResponseBean(OK, OK_MESSAGE);
 	}
 
 	public static AjaxResponseBean getReturnValueResponseBean(Object returnObj) {
-		return new AjaxResponseBean(DWZ_STATUSCODE_OK, DWZ_STATUSCODE_OK_MESSAGE,returnObj);
+		return new AjaxResponseBean(OK, OK_MESSAGE,returnObj);
 	}
 
 	public static AjaxResponseBean getReturnValueResponseBean(int statusCode,
@@ -100,7 +100,7 @@ public class AjaxResponseBean {
 	}
 	
 	public static AjaxResponseBean getErrorResponseBean(String message)  {
-		return new AjaxResponseBean(DWZ_STATUSCODE_ERROR,message);
+		return new AjaxResponseBean(ERROR,message);
 	}
 
 	public static AjaxResponseBean getNoDataReturnValueResponseBean() throws Exception {
@@ -110,7 +110,7 @@ public class AjaxResponseBean {
 		if(paginationBean == null){
 			paginationBean  = new PaginationBean();
 		}
-		return new AjaxResponseBean(DWZ_STATUSCODE_OK,DWZ_STATUSCODE_NO_DATA_MESSAGE,paginationBean);
+		return new AjaxResponseBean(OK, NO_DATA_MESSAGE,paginationBean);
 	}
 	public int getStatusCode() {
 		return statusCode;

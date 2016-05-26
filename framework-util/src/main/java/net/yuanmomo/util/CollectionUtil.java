@@ -25,7 +25,7 @@ import java.util.*;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 public class CollectionUtil {
@@ -37,7 +37,7 @@ public class CollectionUtil {
 	 * @author Hongbin Yuan
 	 * @param con
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static boolean isNull(Collection<?> con){
 		if(con == null || con.isEmpty()){
@@ -52,7 +52,7 @@ public class CollectionUtil {
 	 * @author Hongbin Yuan
 	 * @param array
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static boolean isNull(Object[] array){
 		if(array == null || array.length == 0){
@@ -66,7 +66,7 @@ public class CollectionUtil {
 	 * @author Hongbin Yuan
 	 * @param array
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static boolean isNotNull(Object[] array){
 		return !isNull(array);
@@ -79,7 +79,7 @@ public class CollectionUtil {
 	 * @author Hongbin Yuan
 	 * @param con
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static boolean isNotNull(Collection<?> con){
 		return !isNull(con);
@@ -91,7 +91,7 @@ public class CollectionUtil {
 	 * @author Hongbin Yuan
 	 * @param map
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static boolean isNull(Map<?,?> map){
 		if(map == null || map.isEmpty()){
@@ -105,7 +105,7 @@ public class CollectionUtil {
 	 * @author Hongbin Yuan
 	 * @param map
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static boolean isNotNull(Map<?,?> map){
 		return !isNull(map);
@@ -119,7 +119,7 @@ public class CollectionUtil {
 	 * @param col
 	 * @param seperator
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static<T> String toString(Collection<T> col,String seperator){
 		StringBuilder sb = new StringBuilder();
@@ -140,7 +140,7 @@ public class CollectionUtil {
 	 * @param sourceList
 	 * @param targetType
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	@SuppressWarnings("unchecked")
 	public static<T> List<T> convert(List<?> sourceList,Class<T> targetType){
@@ -215,7 +215,7 @@ public class CollectionUtil {
 	 * @param source
 	 * @param seperator
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static List<String> toList(String source,String seperator){
 		if(StringUtils.isNotBlank(source)){

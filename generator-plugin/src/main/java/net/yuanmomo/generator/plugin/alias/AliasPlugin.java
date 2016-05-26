@@ -28,7 +28,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	
  * Plugin Lifecycle
  *	Plugins have a lifecycle. Plugins are created during the initialization of the code generation process <br/>
@@ -106,7 +106,7 @@ public class AliasPlugin extends PluginAdapter {
 	 * @param xmlElement	指定的xmlElement元素  <br/>
 	 * @param value			查找id值为指定value的Element  <br/>
 	 * @return
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public XmlElement getElementById(XmlElement xmlElement,String value){
 		if(xmlElement == null){

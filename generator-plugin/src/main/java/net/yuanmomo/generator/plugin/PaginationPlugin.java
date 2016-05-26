@@ -18,7 +18,7 @@ package net.yuanmomo.generator.plugin;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 import java.util.List;
@@ -100,7 +100,7 @@ public class PaginationPlugin extends PluginAdapter {
      * @param fieldType
      * @param name
      * @param initializationString
-     * @since JDK 1.6
+     * @since JDK 1.7
      */
     private void addFiled(TopLevelClass topLevelClass,
             IntrospectedTable introspectedTable,

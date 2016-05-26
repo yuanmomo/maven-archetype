@@ -4,17 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.yuanmomo.framework</groupId>
-    <artifactId>framework</artifactId>
+    <artifactId>maven-archetype</artifactId>
     <version>RELEASE</version>
     <packaging>pom</packaging>
 
     <!-- 项目名称 -->
-    <name>framework</name>
+    <name>maven-archetype</name>
 
     <modules>
         <module>framework-init</module>
         <module>framework-util</module>
-        <module>framework-dwz</module>
         <module>generator-plugin</module>
     </modules>
 

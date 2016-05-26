@@ -22,7 +22,7 @@ import org.springframework.context.ApplicationContextAware;
  * 
  * @author : Hongbin Yuan
  * @version
- * @since JDK 1.6
+ * @since JDK 1.7
  * @see
  */
 public class BeanUtil implements ApplicationContextAware {

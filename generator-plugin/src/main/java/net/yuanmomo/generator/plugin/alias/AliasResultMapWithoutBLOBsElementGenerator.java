@@ -26,7 +26,7 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
  * 
  * @author : Hongbin Yuan
  * @version
- * @since JDK 1.6
+ * @since JDK 1.7
  * @see
  */
 public class AliasResultMapWithoutBLOBsElementGenerator {
@@ -40,7 +40,7 @@ public class AliasResultMapWithoutBLOBsElementGenerator {
 	 * @author Hongbin Yuan			父元素，新的elements将作为子元素添加到该元素
 	 * @param parentElement
 	 * @param introspectedTable		当前表的信息
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public void addElements(XmlElement parentElement,IntrospectedTable introspectedTable) {
 		XmlElement answer = new XmlElement("resultMap"); //$NON-NLS-1$
@@ -76,7 +76,7 @@ public class AliasResultMapWithoutBLOBsElementGenerator {
 	 * @author Hongbin Yuan
 	 * @param answer
 	 * @param introspectedTable
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	private void addResultMapElements(XmlElement answer,IntrospectedTable introspectedTable) {
 		// 得到当前表的名字
@@ -133,7 +133,7 @@ public class AliasResultMapWithoutBLOBsElementGenerator {
 	 * @author Hongbin Yuan
 	 * @param answer
 	 * @param introspectedTable
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	private void addResultMapConstructorElements(XmlElement answer,IntrospectedTable introspectedTable) {
 		// 得到当前表的名字

@@ -28,7 +28,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 public class MapperExceptionPlugin extends PluginAdapter {

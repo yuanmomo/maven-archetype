@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ser.SerializerFactory;
  *
  * @author   : Hongbin.Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 public class StdSerializerProvider extends DefaultSerializerProvider

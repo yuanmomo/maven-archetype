@@ -36,7 +36,7 @@ import java.security.NoSuchAlgorithmException;
  * 
  * @author : MoMo
  * @version
- * @since JDK 1.6
+ * @since JDK 1.7
  * @see
  */
 public class MD5 {
@@ -52,7 +52,7 @@ public class MD5 {
 	 * @param source
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static String getMD5(byte[] source) throws Exception {
 		MessageDigest md = null;
@@ -86,7 +86,7 @@ public class MD5 {
 	 * @param param
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static String getMD5(String param) throws Exception {
 		byte[] source = param.getBytes();
@@ -105,7 +105,7 @@ public class MD5 {
 	 * @param file
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static String getMD5(File file) throws Exception {
 		FileInputStream fis = null;

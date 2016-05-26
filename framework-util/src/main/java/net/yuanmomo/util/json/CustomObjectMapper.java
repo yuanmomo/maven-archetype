@@ -27,13 +27,13 @@ import java.util.TimeZone;
  *
  * @author   : Hongbin.Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 public class CustomObjectMapper extends ObjectMapper{
     /**
 	 * serialVersionUID:TODO.
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	private static final long serialVersionUID = 1L;
 

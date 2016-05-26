@@ -1,5 +1,7 @@
 package net.yuanmomo.framework.business.mybatis;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.yuanmomo.framework.bean.Demo;
 import net.yuanmomo.framework.bean.DemoParam;
 import net.yuanmomo.framework.mybatis.mapper.DemoMapper;
@@ -10,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class DemoBusiness {
@@ -40,16 +40,10 @@ public class DemoBusiness {
      */
     @Transactional(propagation=Propagation.REQUIRED,isolation =Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
     public int insertSelective(Demo obj) throws Exception {
-        try{
-            if(obj  == null ){
-                return 0;
-            }
-
-            int count = this.demoMapper.insertSelective(obj);
-            return count;
-        }catch (Exception e){
-            throw e;
+        if(obj  == null ){
+            return 0;
         }
+        return this.demoMapper.insertSelective(obj);
     }
 
     /**

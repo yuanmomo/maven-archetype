@@ -103,17 +103,5 @@
 			<!-- 是否生成自增长主键 -->
 			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
-		<!-- 配置需要自动生成的表，可配置多个table标签 -->
-		<table tableName="test" domainObjectName="Test" >
-
-			<!-- 生成的business文件名称,不配置，则不会生成business  -->
-			<property name="generatedBusinessName" value="TestBusiness"/>
-
-			<!-- 生成的controller文件名称，不配置，则不会生成controller -->
-			<property name="generatedControllerName" value="TestController"/>
-
-			<!-- 是否生成自增长主键 -->
-			<generatedKey column="id" sqlStatement="MySql" identity="true"/>
-		</table>
 	</context>
 </generatorConfiguration>

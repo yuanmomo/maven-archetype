@@ -1,6 +1,5 @@
-import net.yuanmomo.framework.bean.Demo;
-import net.yuanmomo.framework.bean.DemoParam;
-import net.yuanmomo.framework.business.mybatis.DemoBusiness;
+import net.yuanmomo.framework.bean.TestParam;
+import net.yuanmomo.framework.business.mybatis.TestBusiness;
 import net.yuanmomo.util.NumberUtil;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
+import java.net.NetPermission;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +19,9 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:config/ApplicationContext.xml")
-public class BaseTest {
+public class BasicTest {
 
-    @Autowired protected DemoBusiness demoBusiness = null;
+    @Autowired protected TestBusiness demoBusiness = null;
 
     @Test
     public void test(){
@@ -31,7 +31,7 @@ public class BaseTest {
     }
 
     public void testInsert(){
-        Demo demo = new Demo();
+        net.yuanmomo.framework.bean.Test demo = new net.yuanmomo.framework.bean.Test();
         demo.setBytecol((byte) 1);
         demo.setShortcol((short) 2);
         demo.setIntcol(3);
@@ -55,10 +55,10 @@ public class BaseTest {
     }
 
     public void testSelect(){
-        DemoParam param = new DemoParam();
+        TestParam param = new TestParam();
         param.createCriteria().andBytecolEqualTo((byte) 1);
         try {
-            List<Demo> demoList= this.demoBusiness.selectDemoList(param);
+            List<net.yuanmomo.framework.bean.Test> demoList= this.demoBusiness.selectTestList(param);
             if(CollectionUtils.isEmpty(demoList) || !demoList.get(0).getShortcol().equals((short)2)){
                 Assert.fail();
             }
@@ -68,10 +68,10 @@ public class BaseTest {
     }
 
     public void testUpdate(){
-        DemoParam param = new DemoParam();
+        TestParam param = new TestParam();
         param.createCriteria().andBytecolEqualTo((byte) 1);
         try {
-            List<Demo> demoList= this.demoBusiness.selectDemoList(param);
+            List<net.yuanmomo.framework.bean.Test> demoList= this.demoBusiness.selectTestList(param);
 
             if(CollectionUtils.isEmpty(demoList) || !demoList.get(0).getShortcol().equals((short)2)){
                 Assert.fail();
@@ -79,23 +79,23 @@ public class BaseTest {
 
             long key = demoList.get(0).getId();
 
-            Demo newDemo = new Demo();
-            newDemo.setId(key);
+            net.yuanmomo.framework.bean.Test newTest = new net.yuanmomo.framework.bean.Test();
+            newTest.setId(key);
             String newColumn1 = "B";
             String newColumn2 = "String column2 new";
-            newDemo.setStringcol1(newColumn1);
-            newDemo.setStringcol2(newColumn2);
+            newTest.setStringcol1(newColumn1);
+            newTest.setStringcol2(newColumn2);
 
 
-            int count = this.demoBusiness.update(newDemo);
+            int count = this.demoBusiness.update(newTest);
             if(count != 1 ){
                 Assert.fail();
             }
 
             // 重新查询数据库
-            Demo afterDemo = this.demoBusiness.getDemoByKey(key);
-            if(afterDemo == null || !newColumn1.equals(afterDemo.getStringcol1())
-                    || !newColumn2.equals(afterDemo.getStringcol2())){
+            net.yuanmomo.framework.bean.Test afterTest = this.demoBusiness.getTestByKey(key);
+            if(afterTest == null || !newColumn1.equals(afterTest.getStringcol1())
+                    || !newColumn2.equals(afterTest.getStringcol2())){
                 Assert.fail();
             }
         } catch (Exception e) {

@@ -15,7 +15,7 @@
 		<property name="locations"
 			value="classpath:config/*.properties" />
 	</bean>
-	
+
 	<!-- ================================ 数据源 ================================================= -->
 	<!-- Druid 数据源配置 -->
 	<bean id="mainDataSource" class="com.alibaba.druid.pool.DruidDataSource"
@@ -44,7 +44,7 @@
 		<property name="logAbandoned" value="${logAbandoned}" /> <!-- 关闭abanded连接时输出错误日志 -->
 	</bean>
 
-	<!--&lt;!&ndash; 懒加载数据源，在使用的时候才初始化连接 &ndash;&gt;-->
+	<!-- 懒加载数据源，在使用的时候才初始化连接 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
 		<property name="targetDataSource">
@@ -56,9 +56,9 @@
 	<!-- 启用annotation配置 -->
 	<context:annotation-config />
 	
-	<!-- 启用AOP -->
+	<!-- 启用动态代理配置事务 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-
+	
 	<!-- 事务管理器 -->
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -83,23 +83,6 @@
 		<property name="basePackage" value="net.yuanmomo.framework.mybatis.mapper" />
 	</bean>
 
-
-	<!-- ================================ 配置国际化资源文件路径 ============================================= -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<!-- 定义消息资源文件的相对路径 -->
-		<property name="basename" value="i18n/message"/>
-	</bean>
-	<!-- 基于Cookie的本地化解析器 -->
-	<!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">-->
-		<!--<property name="cookieMaxAge" value="604800"/>-->
-		<!--<property name="defaultLocale" value="zh_CN"/>-->
-		<!--<property name="cookieName" value="Language"></property>-->
-	<!--</bean>-->
-	<!-- 基于Session的本地化解析器 -->
-	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >
-		<property name="defaultLocale" value="zh_CN"/>
-	</bean>
-
 	<!-- ================================ 验证码图片生成器 ============================================= -->
 	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
 		<property name="config">
@@ -120,6 +103,17 @@
 		</property>
 	</bean>
 
-	<!-- ================================ 配置BeanUtil ============================================= -->
-	<bean class="net.yuanmomo.util.BeanUtil"></bean>
+	<!-- ================================ 系统配置 ================================================= -->
+	<bean class="net.yuanmomo.framework.resources.GlobalParam">
+		<property name="adminUserList">
+        	<list>
+        		<bean class="net.yuanmomo.framework.bean.MUser">
+					<property name="id" value="0"/>
+					<property name="name" value="admin" />
+					<property name="password" value="21232f297a57a5a743894a0e4a801fc3" /><!-- 默认密码: admin -->	
+					<property name="privilege" value="1" />
+				</bean>
+        	</list>
+        </property>
+	</bean>
 </beans>

@@ -1,0 +1,38 @@
+<div class="pageContent">
+	<form method="post" action="test/insert.do" class="pageForm" id="addTestForm">
+		<div class="pageFormContent" layoutH="58">
+			<div class="unit">
+				<label>number：</label>
+				<input type="text" size="25" name="number" id="number"  class="required"/>
+			</div>
+			<div class="unit">
+				<label>version：</label>
+				<input type="text" size="25" name="version" id="version"  class="required"/>
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="reset" onclick="">重置</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+<!--
+var options = {
+	type : "POST",
+	beforeSubmit : testSubmit,
+	success : function(response) {
+		selfCallBack(response);
+		$.pdialog.closeCurrent();
+		selectTestList();
+	}
+};
+function testSubmit(){
+	return saveTest('addTestForm',"insert");
+}
+$("#addTestForm",$.pdialog.getCurrent()).ajaxForm(options);
+//-->
+</script>

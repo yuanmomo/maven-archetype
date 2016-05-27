@@ -1,6 +1,3 @@
-import net.yuanmomo.framework.bean.Demo;
-import net.yuanmomo.framework.bean.DemoParam;
-import net.yuanmomo.framework.business.mybatis.DemoBusiness;
 import net.yuanmomo.util.NumberUtil;
 import org.junit.Assert;
 import org.junit.Test;

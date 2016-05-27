@@ -50,14 +50,4 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<!-- 设置 session 到 ThreadLocal -->
-<!-- 	<filter> -->
-<!-- 		<filter-name>sessionFilter</filter-name> -->
-<!-- 		<filter-class>net.yuanmomo.framework.util.session.SessionFilter</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>sessionFilter</filter-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
 </web-app>

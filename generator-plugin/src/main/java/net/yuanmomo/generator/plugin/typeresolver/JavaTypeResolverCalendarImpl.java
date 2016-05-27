@@ -35,7 +35,7 @@ import org.mybatis.generator.internal.util.StringUtility;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 public class JavaTypeResolverCalendarImpl implements JavaTypeResolver {

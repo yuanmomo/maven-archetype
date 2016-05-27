@@ -26,7 +26,7 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
  * 
  * @author : Hongbin Yuan
  * @version
- * @since JDK 1.6
+ * @since JDK 1.7
  * @see
  */
 public class AliasColumnListElementGenerator {
@@ -40,7 +40,7 @@ public class AliasColumnListElementGenerator {
 	 * @author Hongbin Yuan
 	 * @param parentElement			父元素，新的elements将作为子元素添加到该元素
 	 * @param introspectedTable		当前表的信息
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public void addElements(XmlElement parentElement,IntrospectedTable introspectedTable) {
 		XmlElement answer = new XmlElement("sql"); //$NON-NLS-1$

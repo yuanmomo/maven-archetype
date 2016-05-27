@@ -23,7 +23,7 @@ public class MyBatisGeneratorTool {
 	 *
 	 * @author Hongbin Yuan
 	 * @param generatorConfigPath  generatorConfigPath.xml配置文件的路径
-	 * @since JDK 1.6
+	 * @since JDK 1.7
 	 */
 	public static void generate(String generatorConfigPath) {
 		if(generatorConfigPath == null || "".equals(generatorConfigPath.trim())){

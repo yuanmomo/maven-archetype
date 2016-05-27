@@ -27,7 +27,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.6
+ * @since      JDK 1.7
  * @see 	 
  */
 public class AliasExampleWhereClauseGenerator{

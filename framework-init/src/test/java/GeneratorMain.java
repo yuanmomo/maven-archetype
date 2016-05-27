@@ -16,7 +16,7 @@ import net.yuanmomo.generator.MyBatisGeneratorTool;
  * 
  * @author : Hongbin.Yuan
  * @version
- * @since JDK 1.6
+ * @since JDK 1.7
  * @see
  */
 public class GeneratorMain {

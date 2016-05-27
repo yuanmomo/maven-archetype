@@ -43,14 +43,6 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	
-	<!-- 自定义拦截器 - 设置 session 到 ThreadLocal -->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="net.yuanmomo.framework.util.session.UserSessionInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
-	
 	<!-- 把标记了@Controller注解的类转换为bean -->
 	<context:component-scan base-package="net.yuanmomo.framework.controller,net.yuanmomo.util.controller" />
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:config/ApplicationContext.xml")
-public class DemoTest {
+public class BaseTest {
 
     @Autowired protected DemoBusiness demoBusiness = null;
 

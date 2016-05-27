@@ -13,12 +13,16 @@ function createArchetype {
     cd ../../../../
 }
 
+git fetch --all
+
 echo 创建 framework-common 项目骨架, 不带 DWZ 的项目
 git checkout master
+git pull
 createArchetype
 
 echo 创建 framework-dwz 项目骨架
 git checkout dwz
+git pull
 createArchetype
 
 echo 清理项目

@@ -6,29 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:config/ApplicationContext.xml")
+// 配置事务管理器,默认执行方法后,回滚事务
 @TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
-public class BasicTest {
-	@Autowired
-	protected TestBusiness testBusiness = null;
+// 当前测试类使用事务
+@Transactional
+public class BaseTest {
 
-	@Test
-	public void test() {
-		try {
-			net.yuanmomo.dwz.bean.Test t = new net.yuanmomo.dwz.bean.Test();
-			t.setNumber(11);
-			int count = testBusiness.insertSelective(t);
-			if (count > 0) {
-				System.out.println("插入成功");
-			} else {
-				System.out.println("插入失败");
-			}
-		} catch (Exception e) {
-			System.out.println("插入异常" + e.getMessage());
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
 }

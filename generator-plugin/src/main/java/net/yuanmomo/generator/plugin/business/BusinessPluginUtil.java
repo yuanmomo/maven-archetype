@@ -3,6 +3,8 @@ package net.yuanmomo.generator.plugin.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import net.yuanmomo.generator.PluginUtil;
 import net.yuanmomo.util.CollectionUtil;
 
@@ -117,18 +119,14 @@ public class BusinessPluginUtil {
         if(!CollectionUtil.isNull(insertMethodList)){
         	methodList.addAll(insertMethodList);
         }
-     	// add update method list
-        List<Method> updateMethodList = UpdateBusinessGenerator.generator(beanType, beanName, mapperFieldName);
-        if(!CollectionUtil.isNull(updateMethodList)){
-        	methodList.addAll(updateMethodList);
-        }
-        
+
         // add selectXXXByKey
         // 判断是否包含主键
         GeneratedKey generatedKey = introspectedTable.getTableConfiguration().getGeneratedKey();
+		String generatedKeyColumn  = null;
         if(generatedKey != null){
-	        String keyColumn = generatedKey.getColumn();
-	        FullyQualifiedJavaType keyType = introspectedTable.getColumn(keyColumn).getFullyQualifiedJavaType();
+	        generatedKeyColumn = generatedKey.getColumn();
+	        FullyQualifiedJavaType keyType = introspectedTable.getColumn(generatedKeyColumn).getFullyQualifiedJavaType();
 	        if(generatedKey != null){
 	        	List<Method> getByKeyMethodList = GetByKeyBusinessGenerator.generator(beanType, beanName, mapperFieldName,keyType);
 	            if(!CollectionUtil.isNull(getByKeyMethodList)){
@@ -136,7 +134,18 @@ public class BusinessPluginUtil {
 	            }
 	        }
         }
-        
+
+		// add update method list
+		String beanGeneratedKeyGetter = null;
+		if(StringUtils.isNotBlank(generatedKeyColumn)){
+			beanGeneratedKeyGetter = "get" + StringUtils.capitalize(introspectedTable.getColumn(generatedKeyColumn).getJavaProperty());
+		}
+
+		List<Method> updateMethodList = UpdateBusinessGenerator.generator(beanType, beanName, mapperFieldName,beanGeneratedKeyGetter);
+		if(!CollectionUtil.isNull(updateMethodList)){
+			methodList.addAll(updateMethodList);
+		}
+
         // add selectList
         List<Method> selectListMethodList = SelectListBusinessGenerator.generator(beanType, beanName, mapperFieldName,criteriaType);
         if(!CollectionUtil.isNull(selectListMethodList)){

@@ -1,5 +1,6 @@
 package net.yuanmomo.generator.plugin.business;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
 import org.mybatis.generator.api.dom.java.Method;
@@ -13,8 +14,11 @@ public class UpdateBusinessGenerator {
 	 * 	生成方法
 	 * @return
 	 */
-	public static List<Method> generator(FullyQualifiedJavaType beanType,String beanName,
-			String mapperFieldName){
+	public static List<Method> generator(
+            FullyQualifiedJavaType beanType,
+            String beanName,
+			String mapperFieldName,
+            String beanGeneratedKeyGetter){
 		List<Method> methodList = new ArrayList<Method>();
 		Method method = new Method();
         method.addAnnotation(BusinessPluginUtil.transactionAnno);
@@ -42,7 +46,11 @@ public class UpdateBusinessGenerator {
         method.addBodyLine("return updateCount;");
         method.addBodyLine("}");
         method.addBodyLine("for ("+ beanName +"  obj : list) {");
-        method.addBodyLine("if (obj == null) {");
+        if(StringUtils.isNotBlank(beanGeneratedKeyGetter)){
+            method.addBodyLine("if (obj == null || obj."+ beanGeneratedKeyGetter +"() == null || obj."+ beanGeneratedKeyGetter +"() <= 0 ) {");
+        }else {
+            method.addBodyLine("if (obj == null) {");
+        }
         method.addBodyLine("continue;");
         method.addBodyLine("}");
         method.addBodyLine("try {");

@@ -3,16 +3,12 @@ package net.yuanmomo.dwz.test.mock;
 import net.yuanmomo.dwz.business.mybatis.TestBusiness;
 import net.yuanmomo.dwz.controller.mybatis.TestController;
 import net.yuanmomo.dwz.mybatis.mapper.TestMapper;
-import net.yuanmomo.dwz.test.BaseMockTest;
+import net.yuanmomo.dwz.test.BaseTest;
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.aop.framework.AopContext;
-import org.springframework.aop.framework.AopProxy;
-import org.springframework.aop.framework.AopProxyUtils;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.util.AopTestUtils;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -28,7 +24,7 @@ import java.util.List;
  * <p>
  * Created by Hongbin.Yuan on 2016-05-29 18:03.
  */
-public class DemoMockTest extends BaseMockTest {
+public class DemoMockTest extends BaseTest {
 
     @Autowired protected TestBusiness testBusiness = null;
     @Autowired protected TestController testController = null;

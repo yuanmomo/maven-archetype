@@ -2,7 +2,7 @@
 
 maven项目初始化末模板
 
-该框架集成 Spring, Spring MVC, MyBatis, MyBatis Generator, DWZ 等开源框架的项目环境搭建模板。只需要简单的通过Maven创建一个新项目，就集成了以上的开源框架，大大提高效率。
+该框架集成 Spring, Spring MVC, MyBatis, MyBatis Generator, DWZ 等开源框架的项目环境搭建模板。只需要简单的通过Maven创建一个新项目，就集成了以上的开源框架，大大地提高效率。
 
 
 

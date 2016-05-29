@@ -1,0 +1,136 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>资产管理后台</title>
+<link href="css/login.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.7.2.js" type="text/javascript"></script>
+<script src="js.min/dwz.min.js" type="text/javascript"></script>
+<script src="privateJS/global.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<div id="login">
+		<div id="login_header">
+			<h1 class="login_logo">
+				<a href="http://demo.dwzjs.com"><img src="css/default/images/login_logo.gif" /></a>
+			</h1>
+			<div class="login_headerContent">
+				<div class="navList">
+					<ul>
+						<li><a href="#">设为首页</a></li>
+					</ul>
+				</div>
+				<h2 class="login_title"><img src="css/default/images/login_title.png" /></h2>
+			</div>
+		</div>
+		<div id="login_content">
+			<div class="loginForm">
+				<form id="loginform"  onsubmit="return checkLogin(this);">
+					<p>
+						<label>用户名：</label>
+						<input type="text" name="userName" id="userName" size="20" class="login_input" value="请输入账号" />
+					</p>
+					<p>
+						<label>密码：</label>
+						<input type="password" name="password" id="password" size="20" class="login_input"/>
+					</p>
+					<p>
+						<label>验证码：</label>
+						<input class="code" type="text" name="verificationCode" id="verificationCode" size="4" maxlength="4"/>
+					</p>
+					<p>
+						<img id="verificationCodeIMG" src="image.do" style="cursor : pointer;margin: 10px 0px;margin-left: 82px;" 
+							alt="未显示请点击刷新" title="看不清楚？请点击刷新" onclick="this.src=this.src" width="150" height="40" />
+					</p>
+					<p>
+						<label>&nbsp;</label>
+						<div style="color: red;display: none;"  id="toperror">
+						</div>
+					</p>
+					<div class="login_bar">
+						<input class="sub" type="submit" value="" />
+					</div>
+				</form>
+			</div>
+			<div class="login_banner"><img src="css/default/images/login_banner.png" /></div>
+			<div class="login_main">
+				<ul class="helpList">
+				</ul>
+				<div class="login_inner">
+				</div>
+			</div>
+		</div>
+		<div id="login_footer">
+			Copyright &copy; 2014 www.lingyb.com Inc. All Rights Reserved.
+            	 蜀ICP备14011383号-1
+		</div>
+	</div>
+<script type="text/javascript">
+	$(function(){
+		$("#userName").focus(function(){
+			$("#toperror").hide();
+			var con = $("#userName");
+			var v = con.val();
+			if(v == '请输入账号'){
+				con.val('');
+			}
+		});
+		$("#userName").blur(function(){
+			var con = $(this);
+			var v = con.val();
+			if(v == '' || v == null){
+				con.val('请输入账号');
+			}
+		});
+	});
+	
+	//检查用户输入的登录信息
+	function checkLogin(form){
+		var ta=$("#userName").val();
+		var tp=$("#password").val();
+		var code=$("#verificationCode").val();
+		
+		if(ta == ''||ta == null||ta=="请输入账号"){
+			$("#toperror").css("display","");
+			$("#toperror").html("请输入账号");
+			return false;
+		}
+		if(tp == ''||tp == null||tp=="密码"){
+			$("#toperror").css("display","");
+			$("#toperror").html("请输入密码");
+			return false;
+		}
+		if(ta != "xmm" && (code == ''|| code == null|| code.length != 4 )){
+			$("#toperror").css("display","");
+			$("#toperror").html("验证码输入错误");
+			return false;
+		}
+		//返回DWZ的validateCallback函数
+		$.ajax({
+			type:"POST",
+			url:"login.do", 
+			data :$("#loginform").serialize(),
+			success:function (response){
+				var json = DWZ.jsonEval(response);
+				if(json.statusCode ==200 || json.statusCode ==201){
+					if(json.returnValue.privilege != null){
+						window.location.href="backend/index.html?userName="+json.returnValue.name;
+					}else{
+						window.location.href="channel/index.html";
+					}
+				}else{
+					$("#userName").blur();
+					$("#password").blur();
+					$("#toperror").css("display","");
+					$("#verificationCodeIMG").click();
+					$("#toperror").html(json.message ? json.message :"登录异常！" );
+				}
+			}
+		});
+		return false;
+	}
+	
+</script>
+</body>
+</html>

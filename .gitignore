@@ -11,3 +11,4 @@ log/
 *.iml
 */target/
 *.iml
+!*/LogFactory.java

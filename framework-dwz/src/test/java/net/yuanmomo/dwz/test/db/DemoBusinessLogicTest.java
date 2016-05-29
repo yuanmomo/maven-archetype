@@ -1,23 +1,20 @@
+package net.yuanmomo.dwz.test.db;
+
 import net.yuanmomo.dwz.bean.TestParam;
 import net.yuanmomo.dwz.business.mybatis.TestBusiness;
-import net.yuanmomo.util.CollectionUtil;
+import net.yuanmomo.dwz.test.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * 继承 BaseTest, 测试期间对数据库的 CRUD 操作,最终都会回滚,不会影响数据库中的数据。
+ * 继承 net.yuanmomo.dwz.test.BaseTest, 测试期间对数据库的 CRUD 操作,最终都会回滚,不会影响数据库中的数据。
  */
 @Sql("classpath:sql/test.sql")
-public class DemoTest extends BaseTest{
+public class DemoBusinessLogicTest extends BaseTest {
 	@Autowired protected TestBusiness testBusiness = null;
 
 	/**

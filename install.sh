@@ -5,25 +5,19 @@ echo @Copyright 2015 Create By Hongbin.Yuan  QQ:342398690 日期：2015-10-12 22
 echo 开始编译 framework
 mvn -DskipTests=true install
 
-function createArchetype {
-    cd framework-init
-    mvn archetype:create-from-project -Darchetype.properties=type.properties
-    cd target/generated-sources/archetype
-    mvn  install
-    cd ../../../../
-}
-
-git fetch --all
-
-echo 创建 framework-common 项目骨架, 不带 DWZ 的项目
-git checkout master
-git pull
-createArchetype
+echo 创建 framework-init 项目骨架
+cd framework-init
+mvn clean archetype:create-from-project
+cd target/generated-sources/archetype
+mvn  install
+cd ../../../../
 
 echo 创建 framework-dwz 项目骨架
-git checkout dwz
-git pull
-createArchetype
+cd framework-dwz
+mvn  clean archetype:create-from-project
+cd target/generated-sources/archetype
+mvn  install
+cd ../../../../
 
 echo 清理项目
-mvn  clean
+mvn clean

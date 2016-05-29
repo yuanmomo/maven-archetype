@@ -7,7 +7,7 @@ public class AjaxResponseBean {
 	 * {"statusCode":"200", "message":"操作成功"}
 	 * {"statusCode":"300", "message":"操作失败"}
 	 * {"statusCode":"301", "message":"会话超时"}
-	 * 
+	 *
 	 */
 	private int statusCode;
 	private Object message;
@@ -15,7 +15,7 @@ public class AjaxResponseBean {
 	private String rel = "";
 	private String callbackType = "";
 	private String forwardUrl = "";
-	
+
 	/**
 	 * returnValue: 后台相应返回的json数据.
 	 * @since JDK 1.7
@@ -62,20 +62,20 @@ public class AjaxResponseBean {
 		/************************************* 操作失败 **********************************************/
 		public static AjaxResponseBean TIMEOUT_RESPONSE_BEAN =
 				new AjaxResponseBean(TIMEOUT, TIMEOUT_MESSAGE);
-		
+
 		public static AjaxResponseBean NO_PERMISSION_RESPONSE_BEAN =
 				new AjaxResponseBean(PERMISSION_DENY, PERMISSION_DENY_MESSAGE);
-		
+
 		public static AjaxResponseBean ERROR_RESPONSE_BEAN =
 				new AjaxResponseBean(ERROR, ERROR_MESSAGE);
-		
+
 		public static AjaxResponseBean PARAMETER_INVALID_ERROR_RESPONSE_BEAN =
 				new AjaxResponseBean(ERROR, PARAMETER_INVALID_ERROR_MESSAGE);
-		
+
 		/************************************* 操作成功 **********************************************/
 		public static AjaxResponseBean NO_DATA_RESPONSE_BEAN =
 				new AjaxResponseBean(OK, NO_DATA_MESSAGE);
-		
+
 		public static AjaxResponseBean SUCCESS_RESPONSE_BEAN =
 				new AjaxResponseBean(OK, OK_MESSAGE);
 	}
@@ -85,10 +85,10 @@ public class AjaxResponseBean {
 	}
 
 	public static AjaxResponseBean getReturnValueResponseBean(int statusCode,
-			String message,Object returnObj) throws Exception {
+															  String message,Object returnObj) throws Exception {
 		return new AjaxResponseBean(statusCode,message, returnObj);
 	}
-	
+
 	public static AjaxResponseBean getErrorResponseBean(String message)  {
 		return new AjaxResponseBean(ERROR,message);
 	}

@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  *
  * @author   : Hongbin.Yuan
  * @version  
- * @since      JDK 1.7
+ * @since      JDK 1.6
  * @see 	 
  */
 public class NumberUtil {
@@ -40,7 +40,7 @@ public class NumberUtil {
 	 * @author Hongbin.Yuan
 	 * @param obj
 	 * @return
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	public static boolean isPositive (Number obj){
 		if(obj == null || obj.longValue() <=0){
@@ -57,7 +57,7 @@ public class NumberUtil {
 	 * @author Hongbin.Yuan
 	 * @param obj
 	 * @return
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	public static boolean isNegative(Number obj){
 		if(obj == null || obj.longValue() >=0){

@@ -14,6 +14,7 @@
     <modules>
         <module>framework-init</module>
         <module>framework-util</module>
+        <module>framework-dwz</module>
         <module>generator-plugin</module>
     </modules>
 

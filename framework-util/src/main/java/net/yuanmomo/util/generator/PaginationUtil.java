@@ -20,7 +20,7 @@ package net.yuanmomo.util.generator;
  *
  * @author   : Hongbin Yuan
  * @version  
- * @since      JDK 1.7
+ * @since      JDK 1.6
  * @see 	 
  */
 public class PaginationUtil {
@@ -33,7 +33,7 @@ public class PaginationUtil {
 	 * @param pageSize
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	public static int getPages(int total, int pageSize) throws Exception{
 		if(pageSize <= 0){

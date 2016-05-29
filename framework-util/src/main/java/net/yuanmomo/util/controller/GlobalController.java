@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author : Hongbin Yuan
  * @see
- * @since JDK 1.7
+ * @since JDK 1.6
  */
 @Controller
 @RequestMapping("/")
@@ -40,7 +40,7 @@ public class GlobalController {
 	 * @param request
 	 * @param response
 	 * @return <code>AjaxResponseBean</code> 一个用户超时的ajax response bean
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	@RequestMapping(value = "toLoginPage.do")
 	@ResponseBody

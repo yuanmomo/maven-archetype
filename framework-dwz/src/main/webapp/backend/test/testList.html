@@ -1,0 +1,103 @@
+<form id="pagerForm" method="post" action="test/selectTestList.do">
+	 <input type="hidden" name="pageNum" id="pageNum" value="1" />
+	 <input type="hidden" name="numPerPage" id="numPerPage" value="10" />
+	 <input type="hidden" name="status" id="status" value="" />
+	 
+	 <input type="hidden" name="conditionType" id="conditionType" value="" />
+	 <input type="hidden" name="conditionValue" id="conditionValue" value="" />
+</form>
+<div class="pageHeader">
+	<input type="hidden" name="currentOptionTestlId" id="currentOptionTestlId" value="" />
+	<div class="searchBar">
+		<table class="searchContent" >
+			<tr >
+				<td>
+					搜索条件:
+				</td>
+				<td style="display: none;">
+					<select class="combox" name="searchConditionType" id="searchConditionType">
+						<option value="2" selected="selected">描述</option>
+						<option value="1" >key</option>
+					</select>
+				</td>
+				<td style="display: none;">
+					<input type="text" size="25" name="searchConditionValue" id="searchConditionValue"/>
+					<button type="button" onclick="selectTestListByConditon()">搜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;索</button>
+				</td>
+			</tr>
+		</table>
+		<div class="subBar">
+			<ul>
+				<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框" 
+					style="display: none;margin-right: 20px;"><span>高级检索</span></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="test/addTest.html" target="dialog" rel="111" mask="true" width="500" height="250"><span>添加</span></a></li>
+			<li class="line hover">line</li>
+			<li class=""><a class="edit" href="" onclick="saveTestOrder();return false;"  title="确定要保存吗?"
+				callback="selfCallBack"><span>批量保存</span></a></li>
+		</ul>
+	</div>
+	<div id="w_list_print">
+	<form id="testDetailListForm">
+		<table class="list" width="98%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>number</th>
+					<th>version</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody id="testDetaiList">
+			</tbody>
+		</table>
+	</form>
+	</div>
+	<div class="panelBar">
+		<div class="pages">
+			<span>显示</span>
+			<select class="combox" id="numPerPageSelect" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value,pageNum:1},'testDetaiList')">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
+				<option value="20" selected="selected">20</option>
+			</select>
+			<span>条，共<span id="totalCount" style="float: none;"></span>条</span>
+		</div>
+		<div class="pagination" targettype="navTab" callback="selectTestListCallback(response)" rel="testDetaiList" totalcount="0" numperpage="10" pagenumshown="10" currentpage="1"></div>
+	</div>
+</div>
+<script id="testDetailTemplate" type="text/template">
+<%
+_.each(dataList, function(test,index) {%>
+	<tr target="sid_user" rel="test<%=test.id%>">
+		<td><%=test.id%><input id="testDetail<%=test.id%>" value="<%=test.id%>" name="" tempName="testList[<%=index%>].id" type="hidden"/></td>
+		<td>
+			<input value="<%=test.number%>" name="" class="required"  style="width: 95%;"
+				tempName="testList[<%=index%>].number" dirtyCheck="true" oldValue="<%=test.number%>" 
+				refId="testDetail<%=test.id%>"/>
+		</td>
+		<td>
+			<input value="<%=test.version%>" name="" class="required"  style="width: 95%;"
+				tempName="testList[<%=index%>].version" dirtyCheck="true" oldValue="<%=test.version%>" 
+				refId="testDetail<%=test.id%>"/>
+		</td>
+		<td>
+			<a href="test/testEdit.html" rel="testEdit<%=test.id%>" target="dialog" 
+				mask="true" title="<%=test.id%>编辑"  width="500" height="250"
+				name="<%=test.number%>" 
+				onclick="setCurrentOperateItemId('currentOptionTestlId',<%=test.id%>)">编辑</a>
+		</td>
+	</tr>
+<%});%>
+</script>
+<script type="text/javascript">
+selectTestList();
+</script>

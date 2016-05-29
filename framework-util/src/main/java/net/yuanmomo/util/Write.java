@@ -39,7 +39,7 @@ import java.util.List;
  *
  * @author   : MoMo
  * @version  
- * @since      JDK 1.7
+ * @since      JDK 1.6
  * @see 	 
  */
 public class Write {
@@ -53,7 +53,7 @@ public class Write {
 	 * @param list
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	public static<T> boolean output(String path,List<T> list)throws Exception{
 		File f=new File(path);
@@ -67,7 +67,7 @@ public class Write {
 	 * @param list
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	public static<T> boolean output(URI uri,List<T> list)throws Exception{
 		File file=new File(uri);
@@ -82,7 +82,7 @@ public class Write {
 	 * @param list
 	 * @return
 	 * @throws Exception
-	 * @since JDK 1.7
+	 * @since JDK 1.6
 	 */
 	public static<T> boolean output(File file,List<T> list)throws Exception{
 		if(file==null){

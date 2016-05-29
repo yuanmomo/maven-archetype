@@ -17,7 +17,7 @@ public class PaginationBean {
 	 * totalPages.
 	 *
 	 * @return  the totalPages
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public int getTotalPages() {
 		return totalPages;
@@ -27,7 +27,7 @@ public class PaginationBean {
 	 * totalPages.
 	 *
 	 * @param   totalPages    the totalPages to set
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
@@ -37,7 +37,7 @@ public class PaginationBean {
 	 * totalCount.
 	 *
 	 * @return  the totalCount
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public int getTotalCount() {
 		return totalCount;
@@ -47,7 +47,7 @@ public class PaginationBean {
 	 * totalCount.
 	 *
 	 * @param   totalCount    the totalCount to set
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
@@ -57,7 +57,7 @@ public class PaginationBean {
 	 * pageNum.
 	 *
 	 * @return  the pageNum
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public int getPageNum() {
 		return pageNum;
@@ -67,7 +67,7 @@ public class PaginationBean {
 	 * pageNum.
 	 *
 	 * @param   pageNum    the pageNum to set
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
@@ -77,7 +77,7 @@ public class PaginationBean {
 	 * numPerPage.
 	 *
 	 * @return  the numPerPage
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public int getNumPerPage() {
 		return numPerPage;
@@ -87,7 +87,7 @@ public class PaginationBean {
 	 * numPerPage.
 	 *
 	 * @param   numPerPage    the numPerPage to set
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public void setNumPerPage(int numPerPage) {
 		this.numPerPage = numPerPage;
@@ -97,7 +97,7 @@ public class PaginationBean {
 	 * result.
 	 *
 	 * @return  the result
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public List<?> getResult() {
 		return result;
@@ -107,7 +107,7 @@ public class PaginationBean {
 	 * result.
 	 *
 	 * @param   result    the result to set
-	 * @since   JDK 1.7
+	 * @since   JDK 1.6
 	 */
 	public void setResult(List<?> result) {
 		this.result = result;

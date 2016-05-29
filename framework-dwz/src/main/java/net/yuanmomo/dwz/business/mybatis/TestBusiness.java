@@ -43,7 +43,7 @@ public class TestBusiness {
         if(obj  == null ){
             return 0;
         }
-        return this.testMapper.insertSelective(obj);
+        return testMapper.insertSelective(obj);
     }
 
     /**

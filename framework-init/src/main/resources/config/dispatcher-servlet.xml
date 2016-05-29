@@ -11,14 +11,11 @@
    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	
-	<!-- Spring mvc 返回json时，默认日志格式 -->
-	<bean name="objectMapper" class="net.yuanmomo.util.json.CustomObjectMapper" >
-		<property name="dateFormat">
-			<bean class="java.text.SimpleDateFormat">
-				<constructor-arg value="yyyy-MM-dd HH:mm:ss" />
-			</bean>
-		</property>
-	</bean>
+	<!-- Spring mvc 返回json时，统一设置当属性为空时序列化的值，以及日期格式。
+		如果需要针对单个类的单个属性设置只需要在类的 field 上面添加 annotation @JsonFormat
+		(@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8"))
+		实现。reference ： http://wiki.fasterxml.com/JacksonFAQDateHandling-->
+	<bean name="objectMapper" class="net.yuanmomo.util.json.CustomObjectMapper" />
 	
 	<!-- 启动Spring MVC的注解功能 -->
 	<mvc:annotation-driven>
@@ -42,19 +39,25 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-
+	
+	<!-- 自定义拦截器 - 设置 session 到 ThreadLocal -->
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--<mvc:mapping path="/**"/>-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
+	
 	<!-- 把标记了@Controller注解的类转换为bean -->
-	<context:component-scan base-package="net.yuanmomo.framework.controller" />
+	<context:component-scan base-package="net.yuanmomo.framework.controller,net.yuanmomo.util.controller" />
 
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean
-			class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
-
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/" p:suffix=".html" />
-
-
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
-		  p:maxUploadSize="5000000" />
+		p:prefix="/" p:suffix=".jsp" />
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+		p:maxUploadSize="5000000" />
 </beans>

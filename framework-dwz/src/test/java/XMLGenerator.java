@@ -1,5 +1,3 @@
-package net.yuanmomo.dwz.mybatis.generator;
-
 import net.yuanmomo.generator.plugin.TableXMLGenerator;
 
 import java.util.List;

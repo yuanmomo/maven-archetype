@@ -44,7 +44,7 @@
 		</plugin>
 
 		<!-- 生成controller, 不再需要单独配置生成business插件，会默认自动生成business -->
-		<plugin type="${pluginBasePackage}.controller.jsp.ControllerPlugin" >
+		<plugin type="${pluginBasePackage}.controller.json.ControllerPlugin" >
 			<property name="businessPackage" value="${businessPackage}"/>
 			<property name="controllerPackage" value="${controllerPackage}"/>
 			<property name="exceptionClass" value="${exceptionClass}"/>

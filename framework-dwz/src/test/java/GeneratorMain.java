@@ -1,4 +1,4 @@
-package net.yuanmomo.dwz.mybatis.generator; /**
+/**
  * Project Name : Tools
  * File Name    : MyBatisGeneratorTest.java
  * Package Name : net.yuanmomo.tools.db.orm.mybatis

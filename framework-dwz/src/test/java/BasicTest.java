@@ -1,5 +1,3 @@
-package net.yuanmomo.dwz;
-
 import net.yuanmomo.dwz.business.mybatis.TestBusiness;
 import org.junit.Assert;
 import org.junit.Test;

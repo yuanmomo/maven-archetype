@@ -5,7 +5,7 @@
 
 	<parent>
 		<groupId>net.yuanmomo.framework</groupId>
-		<artifactId>framework</artifactId>
+		<artifactId>maven-archetype</artifactId>
 		<version>RELEASE</version>
 	</parent>
 

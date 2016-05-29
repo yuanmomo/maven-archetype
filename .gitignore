@@ -5,10 +5,9 @@
 *.war
 *.ear
 .idea/
-*/log/
-log/
+*/logs/*.log
+logs/
 */target/
 *.iml
 */target/
 *.iml
-!*/LogFactory.java

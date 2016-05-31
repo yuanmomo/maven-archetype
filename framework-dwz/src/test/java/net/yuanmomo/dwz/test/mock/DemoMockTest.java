@@ -6,6 +6,7 @@ import net.yuanmomo.dwz.mybatis.mapper.TestMapper;
 import net.yuanmomo.dwz.test.BaseTest;
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
+import org.easymock.internal.LastControl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class DemoMockTest extends BaseTest {
      */
     @Before
     public void before() throws Exception {
-        control = EasyMock.createControl();
+        control = EasyMock.createNiceControl();
 
         mockTestMapper = control.createMock(TestMapper.class);
         mockTestBusiness = control.createMock(TestBusiness.class);
@@ -87,7 +88,7 @@ public class DemoMockTest extends BaseTest {
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
 
             // 当 i = 0 时,模拟数据库插入 失败。
             // 当 i = 1 时,模拟数据库插入 成功。
@@ -106,7 +107,7 @@ public class DemoMockTest extends BaseTest {
                 // 6. 检查 mock 设置的希望是否被调用了。
                 control.verify();
                 // 7. 重置,进行下一轮测试。
-                control.reset();
+                control.resetToNice();
             }
 
 
@@ -145,7 +146,7 @@ public class DemoMockTest extends BaseTest {
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
 
 
             /**
@@ -170,7 +171,7 @@ public class DemoMockTest extends BaseTest {
                 // 6. 检查 mock 设置的希望是否被调用了。
                 control.verify();
                 // 7. 重置,进行下一轮测试。
-                control.reset();
+                control.resetToNice();
             }
 
             /**
@@ -193,7 +194,7 @@ public class DemoMockTest extends BaseTest {
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -210,7 +211,8 @@ public class DemoMockTest extends BaseTest {
             // 1. 初始化数据
             // 2. 设置希望, 希望 business 在执行时,调用 mapper.selectByPrimaryKey 方法时抛出异常
             net.yuanmomo.dwz.bean.Test test = null;
-            EasyMock.expect(mockTestMapper.selectByPrimaryKey(null)).andReturn(null);
+            mockTestMapper.selectByPrimaryKey(null);
+            EasyMock.expectLastCall().andReturn(null).times(1);
             // 3. 录制
             control.replay();
             // 4. 播放,就是开始调用 business 查询方法。
@@ -220,19 +222,20 @@ public class DemoMockTest extends BaseTest {
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
 
             /**
              * 查询时抛出异常。
              */
             // 1. 初始化数据
             // 2. 设置希望, 希望 business 在执行时,调用 mapper.selectByPrimaryKey 方法时抛出异常
-            EasyMock.expect(mockTestMapper.selectByPrimaryKey(EasyMock.anyLong())).andThrow(new RuntimeException());
+            mockTestMapper.selectByPrimaryKey(EasyMock.anyLong());
+            EasyMock.expectLastCall().andThrow(new RuntimeException()).times(1);
             // 3. 录制
             control.replay();
             // 4. 播放,就是开始调用 business 查询方法。
             try {
-                test = testBusiness.getTestByKey(EasyMock.anyLong());
+                test = testBusiness.getTestByKey(0L);
                 Assert.fail();
             } catch (Exception e) {
                 Assert.assertTrue(true);
@@ -242,41 +245,44 @@ public class DemoMockTest extends BaseTest {
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
 
             /**
              * 查询的数据为空。
              */
             // 1. 初始化数据
             // 2. 设置希望, 希望 business 在执行时,调用 mapper.selectByPrimaryKey 方法时的返回空
-            EasyMock.expect(mockTestMapper.selectByPrimaryKey(0L)).andReturn(null);
+            mockTestMapper.selectByPrimaryKey(EasyMock.anyLong());
+            EasyMock.expectLastCall().andReturn(null).times(1);
             // 3. 录制
             control.replay();
             // 4. 播放,就是开始调用 business 插入方法。
-            test = testBusiness.getTestByKey(EasyMock.anyLong());
+            test = testBusiness.getTestByKey(0L);
             // 5. 校验返回的数据是否是预期的数据.
             Assert.assertNull(test);
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
+
 
             /**
              * 查询到一条结果。
              */
             // 1. 初始化数据
             // 2. 设置希望, 希望 business 在执行时,调用 mapper.selectByPrimaryKey 方法时的返回空
-            EasyMock.expect(mockTestMapper.selectByPrimaryKey(0L)).andReturn(new net.yuanmomo.dwz.bean.Test());
+            mockTestMapper.selectByPrimaryKey(EasyMock.anyLong());
+            EasyMock.expectLastCall().andReturn(new net.yuanmomo.dwz.bean.Test()).times(1);
             // 3. 录制
             control.replay();
             // 4. 播放,就是开始调用 business 插入方法。
-            test = testBusiness.getTestByKey(EasyMock.anyLong());
+            test = testBusiness.getTestByKey(0L);
             // 5. 校验返回的数据是否是预期的数据.
             Assert.assertNotNull(test);
             // 6. 检查 mock 设置的希望是否被调用了。
             control.verify();
             // 7. 重置,进行下一轮测试。
-            control.reset();
+            control.resetToNice();
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();

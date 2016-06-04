@@ -1,12 +1,10 @@
 package net.yuanmomo.dwz.test.mock;
 
 import net.yuanmomo.dwz.business.mybatis.TestBusiness;
-import net.yuanmomo.dwz.controller.mybatis.TestController;
 import net.yuanmomo.dwz.mybatis.mapper.TestMapper;
 import net.yuanmomo.dwz.test.BaseTest;
 import org.easymock.EasyMock;
 import org.easymock.IMocksControl;
-import org.easymock.internal.LastControl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,17 +19,14 @@ import java.util.List;
  * 该类分两类测试:
  * <p>
  * 1. mock mapper 类 模拟数据库数据 来 测试 business.
- * 2. mock business 类 模拟业务类 来 测试 controller.
  * <p>
  * Created by Hongbin.Yuan on 2016-05-29 18:03.
  */
-public class DemoMockTest extends BaseTest {
+public class DemoMockBusinessTest extends BaseTest {
 
     @Autowired protected TestBusiness testBusiness = null;
-    @Autowired protected TestController testController = null;
 
     private TestMapper mockTestMapper;
-    private TestBusiness mockTestBusiness;
 
     //创建一个模拟器
     private IMocksControl control = null;
@@ -44,10 +39,8 @@ public class DemoMockTest extends BaseTest {
         control = EasyMock.createNiceControl();
 
         mockTestMapper = control.createMock(TestMapper.class);
-        mockTestBusiness = control.createMock(TestBusiness.class);
 
         ReflectionTestUtils.setField(AopTestUtils.getTargetObject(testBusiness), "testMapper", mockTestMapper);
-        ReflectionTestUtils.setField(AopTestUtils.getTargetObject(testController), "testBusiness", mockTestBusiness);
     }
 
     /**
@@ -96,7 +89,7 @@ public class DemoMockTest extends BaseTest {
                 // 1. 初始化数据
                 count = 0;
                 test = new net.yuanmomo.dwz.bean.Test();
-                // 2. 设置希望, 希望 business 在执行时,调用 mapper.insertSelective 方法时的返回 0 条, 表示插入失败。
+                // 2. 设置希望, 希望 business 在执行时,调用 mapper.insertSelective 方法时的返回的条数, 表示插入失败还是成功。
                 EasyMock.expect(mockTestMapper.insertSelective(EasyMock.anyObject(net.yuanmomo.dwz.bean.Test.class))).andReturn(i);
                 // 3. 录制
                 control.replay();
@@ -160,7 +153,7 @@ public class DemoMockTest extends BaseTest {
                 for (int i1 = 0; i1 < 10; i1++) {
                     testList.add(new net.yuanmomo.dwz.bean.Test());
                 }
-                // 2. 设置希望, 希望 business 在执行时,调用 mapper.insertSelective 方法时的返回 0 条, 表示插入失败。
+                // 2. 设置希望, 希望 business 在执行时,调用 mapper.insertSelective 方法时的返回 插入的条数,表示插入成功还是失败。
                 EasyMock.expect(mockTestMapper.insertSelective(EasyMock.anyObject(net.yuanmomo.dwz.bean.Test.class))).andReturn(i).times(10);
                 // 3. 录制
                 control.replay();
@@ -183,7 +176,7 @@ public class DemoMockTest extends BaseTest {
             for (int i1 = 0; i1 < 5; i1++) {
                 testList.add(new net.yuanmomo.dwz.bean.Test());
             }
-            // 2. 设置希望, 希望 business 在执行时,调用 mapper.insertSelective 方法时的返回 0 条, 表示插入失败。
+            // 2. 设置希望, 希望 business 在执行时,调用 mapper.insertSelective 方法时的返回 1 条, 表示插入 成功。
             EasyMock.expect(mockTestMapper.insertSelective(EasyMock.anyObject(net.yuanmomo.dwz.bean.Test.class))).andReturn(1).times(5);
             // 3. 录制
             control.replay();

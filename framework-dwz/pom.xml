@@ -135,10 +135,11 @@
         </dependency>
 
         <!-- servlet 包 -->
+        <!-- http://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
         </dependency>
 
         <!-- Spring AOP 和动态代理 cglib 依赖包 -->
@@ -252,6 +253,13 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- json 包  -->
         <dependency>

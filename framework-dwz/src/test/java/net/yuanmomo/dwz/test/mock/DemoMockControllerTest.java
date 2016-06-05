@@ -68,13 +68,12 @@ public class DemoMockControllerTest extends BaseTest {
     @Test
     public void testGetTestByKey() {
         try {
-            MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/backend/test/getTestByKey.do",0))
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON)) //验证响应contentType
+            MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/backend/test/getTestByKey.do?id=-1"))
                     .andDo(MockMvcResultHandlers.print())
                     .andReturn();
             AjaxResponseBean responseBean = getJson(result);
             Assert.assertEquals(responseBean.getStatusCode(),AjaxResponseBean.ERROR);
-            Assert.assertEquals(responseBean.getMessage(),AjaxResponseBean.ERROR_MESSAGE);
+            Assert.assertEquals(responseBean.getMessage(),AjaxResponseBean.PARAMETER_INVALID_ERROR_MESSAGE);
 
         } catch (Exception e) {
             e.printStackTrace();

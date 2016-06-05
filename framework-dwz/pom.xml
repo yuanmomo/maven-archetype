@@ -80,8 +80,86 @@
         </profile>
     </profiles>
 
+    <properties>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <java.version>1.7</java.version>
+        <org.springframework.version>4.2.6.RELEASE</org.springframework.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>local private nexus</name>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- 定义 maven 的常用仓库，可以自己搭建Nexus -->
+        <repository>
+            <id>offical</id>
+            <name>Maven Official Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>mvnsearch</id>
+            <name>mvnsearch Maven Repository</name>
+            <url>http://www.mvnsearch.org/maven2</url>
+        </repository>
+        <!--<repository>-->
+        <!--<id>google-maven-snapshot-repository</id>-->
+        <!--<name>Google Maven Snapshot Repository</name>-->
+        <!--<url>http://m2repos.googlecode.com/svn/nexus</url>-->
+        <!--</repository>-->
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>local private nexus</name>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <!-- 设置编码 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <!-- 指定编码格式，否则在DOS下运行mvn命令时当发生文件资源copy时将使用系统默认使用GBK编码 -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- jdk 版本 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <!-- 指定编码格式，否则在DOS下运行mvn compile命令时会出现莫名的错误，因为系统默认使用GBK编码 -->
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
 
         <resources>
             <resource>

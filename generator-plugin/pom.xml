@@ -16,13 +16,36 @@
     <!-- 项目名称 -->
     <name>generator-plugin</name>
 
-
-
     <dependencies>
         <dependency>
             <groupId>net.yuanmomo.framework</groupId>
             <artifactId>framework-util</artifactId>
             <version>RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.27</version>
+        </dependency>
+
+        <!-- MyBatis && Generator(MBG) 包-->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.2.3</version>
+        </dependency>
+        <!-- json 包  -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.7</version>
         </dependency>
     </dependencies>
 

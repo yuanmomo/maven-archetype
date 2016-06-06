@@ -56,7 +56,7 @@ maven项目初始化末模板
 6. OS name: "mac os x", version: "10.11", arch: "x86_64", family: "mac"
 
 * 添加 oschina 的仓库以及三方仓库:
-* 打开 maven 目录中的 config/setting.xml 文件。
+* 打开 maven 目录中的 config/setting.xml(Mac) 或者 conf/settings.xml(win) 文件。
 * 找到 mirrors 标签，修改 mirros标签，改为如下代码：
 
 > ~~~markup

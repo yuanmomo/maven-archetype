@@ -347,10 +347,11 @@
         </dependency>
 
         <!-- kaptcha 谷歌验证码插件 -->
+        <!-- http://mvnrepository.com/artifact/com.github.axet/kaptcha -->
         <dependency>
-            <groupId>com.google.code</groupId>
+            <groupId>com.github.axet</groupId>
             <artifactId>kaptcha</artifactId>
-            <version>2.3.2</version>
+            <version>0.0.9</version>
         </dependency>
 
         <dependency>

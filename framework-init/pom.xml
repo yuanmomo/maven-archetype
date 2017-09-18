@@ -3,21 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>net.yuanmomo.framework</groupId>
-        <artifactId>maven-archetype</artifactId>
-        <version>RELEASE</version>
-    </parent>
-
+    <groupId>net.yuanmomo.framework</groupId>
     <artifactId>framework-init</artifactId>
-    <version>RELEASE</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
-    <!-- 项目名称 -->
     <name>framework-init</name>
 
-
-    <!-- 配置开发，测试，正式环境的参数 -->
+    <!-- config profile -->
     <profiles>
         <profile>
             <id>dev</id>
@@ -26,19 +19,17 @@
             </activation>
             <properties>
                 <maven.profile>dev</maven.profile>
-                <!-- 开发环境的日志目录 -->
+                <!-- dev log -->
                 <log.root>./logs/</log.root>
                 <log.root.level>ALL</log.root.level>
                 <log.systemLog.level>ALL</log.systemLog.level>
 
-
-                <!-- mysql 的正式环境参数配置 -->
+                <!-- mysql dev -->
                 <mysql.host>127.0.0.1</mysql.host>
                 <mysql.port>3306</mysql.port>
                 <mysql.user>root</mysql.user>
                 <mysql.password>root</mysql.password>
                 <mysql.database>test</mysql.database>
-
             </properties>
         </profile>
 
@@ -46,12 +37,11 @@
             <id>test</id>
             <properties>
                 <maven.profile>test</maven.profile>
-                <!-- 测试环境的日志目录 -->
                 <log.root>./logs/</log.root>
                 <log.root.level>DEBUG</log.root.level>
                 <log.systemLog.level>DEBUG</log.systemLog.level>
 
-                <!-- mysql 的正式环境参数配置 -->
+                <!-- mysql test -->
                 <mysql.host>127.0.0.1</mysql.host>
                 <mysql.port>3306</mysql.port>
                 <mysql.user>root</mysql.user>
@@ -65,47 +55,38 @@
             <id>product</id>
             <properties>
                 <maven.profile>product</maven.profile>
-                <!-- 正式环境的日志目录 -->
                 <log.root>./logs/</log.root>
                 <log.root.level>INFO</log.root.level>
                 <log.systemLog.level>INFO</log.systemLog.level>
 
-                <!-- mysql 的正式环境参数配置 -->
+                <!-- mysql product -->
                 <mysql.host>127.0.0.1</mysql.host>
                 <mysql.port>3306</mysql.port>
                 <mysql.user>root</mysql.user>
                 <mysql.password>root</mysql.password>
                 <mysql.database>product</mysql.database>
-
-
             </properties>
         </profile>
     </profiles>
 
+
     <properties>
-        <!-- 文件拷贝时的编码 -->
+        <!-- the encoding when compiling files -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <java.version>1.7</java.version>
-        <org.springframework.version>4.2.6.RELEASE</org.springframework.version>
+        <org.springframework.version>4.3.9.RELEASE</org.springframework.version>
     </properties>
 
+
+    <!--  maven repositories -->
     <repositories>
         <repository>
-            <id>nexus</id>
-            <name>local private nexus</name>
-            <url>http://maven.oschina.net/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>central</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
-
-        <!-- 定义 maven 的常用仓库，可以自己搭建Nexus -->
         <repository>
             <id>offical</id>
             <name>Maven Official Repository</name>
@@ -116,53 +97,40 @@
             <name>mvnsearch Maven Repository</name>
             <url>http://www.mvnsearch.org/maven2</url>
         </repository>
-        <!--<repository>-->
-        <!--<id>google-maven-snapshot-repository</id>-->
-        <!--<name>Google Maven Snapshot Repository</name>-->
-        <!--<url>http://m2repos.googlecode.com/svn/nexus</url>-->
-        <!--</repository>-->
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>nexus</id>
-            <name>local private nexus</name>
-            <url>http://maven.oschina.net/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>central</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </pluginRepository>
     </pluginRepositories>
 
     <build>
-        <finalName>${project.name}</finalName>
-
-        <plugins>
-            <plugin>
-                <!-- 设置编码 -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <!-- 指定编码格式，否则在DOS下运行mvn命令时当发生文件资源copy时将使用系统默认使用GBK编码 -->
-                </configuration>
-            </plugin>
-            <plugin>
-                <!-- jdk 版本 -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <!-- 指定编码格式，否则在DOS下运行mvn compile命令时会出现莫名的错误，因为系统默认使用GBK编码 -->
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <!-- use UTF-8 when copying the resources files -->
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <!-- JDK version -->
+                        <source>1.8</source>
+                        <target>1.8</target>
+                        <!-- cause windows uses GBK, mvn compile may occurs some unknown error. -->
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -179,49 +147,32 @@
 
 
     <dependencies>
-        <!-- MBG插件 -->
+        <!-- Spring AOP and cglib -->
         <dependency>
-            <groupId>net.yuanmomo.framework</groupId>
-            <artifactId>generator-plugin</artifactId>
-            <version>RELEASE</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
-
-        <!-- JUnit包 -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
-
-        <!-- commons-lang包 -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
-
-        <!-- servlet 包 -->
-        <!-- http://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <!-- Spring AOP 和动态代理 cglib 依赖包 -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -238,39 +189,30 @@
             <version>2.2.2</version>
         </dependency>
 
-
-        <!-- Druid 数据源 -->
+        <!-- DataSource and MyBatis -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.29</version>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.27</version>
-        </dependency>
-
-        <!-- MyBatis 和  Generator(MBG) 包-->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.2.3</version>
+            <version>5.1.41</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.2.1</version>
+            <version>1.3.1</version>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.2</version>
-            <scope>compile</scope>
+            <groupId>com.github.yuanmomo</groupId>
+            <artifactId>common-mbg-plugin</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- logback 日志记录包 -->
+        <!-- logback -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -298,76 +240,52 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- ################################## Spring, Spring MVC 的依赖 ################################## -->
+        <!-- commons libs -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${org.springframework.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${org.springframework.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${org.springframework.version}</version>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.1</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId> spring-aspects</artifactId>
-            <version>${org.springframework.version}</version>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
-        <!-- ################################## Spring, Spring MVC 的依赖 ################################## -->
 
-        <!-- Spring MVC @ResponseBody 的 json 包-->
+        <!-- json libs  -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.6.2</version>
         </dependency>
-
-        <!-- json 包  -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.7</version>
         </dependency>
 
-        <!-- kaptcha 谷歌验证码插件 -->
-        <!-- http://mvnrepository.com/artifact/com.github.axet/kaptcha -->
         <dependency>
-            <groupId>com.github.axet</groupId>
-            <artifactId>kaptcha</artifactId>
-            <version>0.0.9</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jdom</groupId>
-            <artifactId>jdom</artifactId>
-            <version>1.1</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.artofsolving</groupId>
-            <artifactId>jodconverter</artifactId>
-            <version>2.2.1</version>
-        </dependency>
-        <!-- java 验证框架 -->
+        <!-- java validators -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -379,10 +297,25 @@
             <version>1.1.0.Final</version>
         </dependency>
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- test -->
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
             <version>3.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

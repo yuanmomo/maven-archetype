@@ -44,7 +44,7 @@
 		<property name="logAbandoned" value="${logAbandoned}" /> <!-- 关闭abanded连接时输出错误日志 -->
 	</bean>
 
-	<!--&lt;!&ndash; 懒加载数据源，在使用的时候才初始化连接 &ndash;&gt;-->
+	<!-- 懒加载数据源，在使用的时候才初始化连接 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
 		<property name="targetDataSource">
